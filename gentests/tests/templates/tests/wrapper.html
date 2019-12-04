@@ -1,0 +1,83 @@
+{% load static %}
+{% load mathjax %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Контрольные</title>
+  <title>border-spacing</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'tests/css/bootstrap.min.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'tests/css/tests.css' %}">
+  {% mathjax_scripts %}
+</head>
+<body>
+  <div id="e2_4" class="divTopPanel">
+      <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link actionPanelSearch" href="#">Поиск контрольных</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link actionPanelCreate" href="#">Создать контрольную</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link actionPanelBrowse" href="#">База задач</a>
+          </li>
+      </ul>
+      <div><a href="/news" class="btn btn-primary btn-lg signin ">Войти </a></div>
+      <div><a href="/news" class="btn btn-primary btn-lg signup ">Зарегистрироваться </a> </div> 
+  </div>
+  <div class="container-fluid">
+      <div class="row">
+          <header class="col-md-3">
+          <nav class="sidebar-sticky bg-dark navbar-expand-md">
+              <a href="#" class="logo navbar-brand">Меню</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+              </button>
+  
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto flex-column">
+                  <li class="nav-item active">
+                  <a href="" class="nav-link">База задач</a>
+                  </li>
+                  <li class="nav-item">
+                  <a href="" class="nav-link">Мои контрольные</a>
+                  </li>
+                  <li class="nav-item">
+                  <a href="" class="nav-link">Сохраненные задачи</a>
+                  </li>
+              </ul>
+              </div>
+          </nav>
+          </header>
+          <!-- end header -->
+  
+          <main class="col-md-9">
+          <h1>У вас пока нет контрольных</h1>
+          </main>
+          <!-- end main -->
+      </div>
+  </div>
+  <div class="jumbotron">
+    <div class="container">
+      <h1></h1>
+      <div class="page-header">
+        <h1>Сервис для создания контрольных</h1>
+        <p>
+          <a href="/news" class="btn btn-primary btn-lg">Начать работу </a>
+          <p> $$ \lim_{x \to 2^y} f(x) = 5 $$</p>
+        </p>
+      </div>
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+  <div class="container">
+    <hr>
+    &copy; Все права защищены 2019
+  </div>
+</body>
+</html>
