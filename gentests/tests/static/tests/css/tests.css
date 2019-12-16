@@ -28,13 +28,15 @@ A:hover {
     height:80px;
 }
 .signup {
+    font-family: 'Roboto', sans-serif;
     background-color: rgb(46, 240, 240);
     display: inline-block;
     position: fixed;
-    left: 77%;
+    left: 76%;
     top: 25px;
 }
 .signin {
+    font-family: 'Roboto', sans-serif;
     background-color:rgba(66.00000366568565, 87.00000241398811, 178.00000458955765, 1);
     display: inline-block;
     position: fixed;
@@ -42,22 +44,25 @@ A:hover {
     top: 25px;
 }
 .actionPanelSearch {
-    display: inline-block;
-    position: fixed;
-    left: 12%;
-    top: 25px;
-    
-}
-.actionPanelCreate {
+    font-family: 'Roboto', sans-serif;
     display: inline-block;
     position: fixed;
     left: 25%;
     top: 25px;
+    
 }
-.actionPanelBrowse {
+.actionPanelCreate {
+    font-family: 'Roboto', sans-serif;
     display: inline-block;
     position: fixed;
     left: 40%;
+    top: 25px;
+}
+.actionPanelBrowse {
+    font-family: 'Roboto', sans-serif;
+    display: inline-block;
+    position: fixed;
+    left: 55%;
     top: 25px;
 }
 #e1_19 {
