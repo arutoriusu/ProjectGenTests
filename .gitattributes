@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# Example of a `.gitattributes` file which reclassifies `.rb` files as Java:
+*.rb linguist-language=Java
+
+# Replace any whitespace in the language name with hyphens:
+*.glyphs linguist-language=OpenStep-Property-List
