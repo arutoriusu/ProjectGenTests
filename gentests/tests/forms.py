@@ -1,12 +1,5 @@
 from django import forms
-from .models import Profile, Test, Variant, Task, Tag
-
-
-class ProfileForm(forms.ModelForm):
-
-    class Meta:
-        model = Profile
-        fields = ['user', 'password']
+from .models import Test, Variant, Task, Tag
 
 
 class TestForm(forms.ModelForm):

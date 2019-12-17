@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import ProfileForm, TestForm, VariantForm, TaskForm, TagForm
+from .forms import TestForm, VariantForm, TaskForm, TagForm
 
 # Create your views here.
 
