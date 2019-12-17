@@ -1,7 +1,11 @@
-from django.contrib import admin
-from .models import Tag, Task, Test, Variant
+# -*- coding: utf-8 -*-
 
-admin.site.register(Tag)
-admin.site.register(Task)
+from django.contrib import admin
+from .models import Profile, Test, Variant, Task, Tag
+
+
+admin.site.register(Profile)
 admin.site.register(Test)
 admin.site.register(Variant)
+admin.site.register(Task)
+admin.site.register(Tag)
