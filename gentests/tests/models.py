@@ -9,7 +9,7 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profiles', unique=True, )
-    password = models.CharField(max_length=30)
+    password = models.CharField(max_length=30, default='12345678')
 
     class Meta:
         verbose_name = "profile"
