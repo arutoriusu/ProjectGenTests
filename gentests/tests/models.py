@@ -18,9 +18,18 @@ class Profile(models.Model):
         return f'{self.user}'
 
 
+class Variant(models.Model):
+    number_of_variants = models.IntegerField()
+
+    class Meta:
+        verbose_name = "variant"
+        verbose_name_plural = "variants"
+
+
 class Test(models.Model):
     theme_of_test = models.CharField(max_length=30)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='tests', default=1)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='tests', )
+    variant = models.ForeignKey(to=Variant, on_delete=models.CASCADE, related_name='tests', null=True)
 
     class Meta:
         verbose_name = "test"
@@ -30,13 +39,16 @@ class Test(models.Model):
         return f'{self.theme_of_test}'
 
 
-class Variant(models.Model):
-    number_of_variant = models.IntegerField()
-    test = models.ForeignKey(to=Test, on_delete=models.CASCADE, related_name='variants', )
+class Tag(models.Model):
+    name_tag = models.CharField(max_length=30)
+    
 
     class Meta:
-        verbose_name = "variant"
-        verbose_name_plural = "variants"
+        verbose_name = "tag"
+        verbose_name_plural = "tags"
+
+    def __str__(self):
+        return f'{self.name_tag}'
 
 
 class Task(models.Model):
@@ -45,6 +57,7 @@ class Task(models.Model):
     img = models.ImageField(blank=True, null=True)
     variant = models.ForeignKey(to=Variant, on_delete=models.CASCADE, related_name='tasks', null=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='tasks', default=1)
+    tag = models.ManyToManyField(to=Tag, related_name='tasks')
 
     class Meta:
         verbose_name = "task"
@@ -52,18 +65,6 @@ class Task(models.Model):
 
     def __str__(self):
         return f'{self.question}'
-
-
-class Tag(models.Model):
-    name_tag = models.CharField(max_length=30)
-    task = models.ManyToManyField(to=Task, related_name='tags')
-
-    class Meta:
-        verbose_name = "tag"
-        verbose_name_plural = "tags"
-
-    def __str__(self):
-        return f'{self.name_tag}'
 
 
 @receiver(post_save, sender=User)

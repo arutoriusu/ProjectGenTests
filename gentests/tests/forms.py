@@ -1,5 +1,5 @@
 from django import forms
-from .models import Test, Variant, Task, Tag
+from .models import Profile, Test, Variant, Task, Tag
 
 
 class TestForm(forms.ModelForm):
@@ -13,7 +13,7 @@ class VariantForm(forms.ModelForm):
 
     class Meta:
         model = Variant
-        fields = ['number_of_variant', ]
+        fields = ['number_of_variants', ]
 
 
 class TaskForm(forms.ModelForm):

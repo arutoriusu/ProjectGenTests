@@ -24,7 +24,7 @@
             <a class="nav-link actionPanelCreate" href="#">Создать контрольную</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link actionPanelBrowse" href="#">База задач</a>
+              <a class="nav-link actionPanelBrowse" href="#">Банк задач</a>
           </li>
       </ul>
       <div><a href="/news" class="btn btn-primary btn-lg signin ">Войти </a></div>
@@ -50,6 +50,9 @@
                   <li class="nav-item">
                   <a href="" class="nav-link">Сохраненные задачи</a>
                   </li>
+                  <li class="nav-item">
+                    <a href="" class="nav-link"></a>
+                  </li>
               </ul>
               </div>
           </nav>
@@ -67,10 +70,13 @@
     <div class="container">
       <h1></h1>
       <div class="page-header">
-        <h1>Сервис для создания контрольных</h1>
         <p>
           <a href="{% url 'test_new' %}" class="btn btn-primary btn-lg">Создать контрольную</a>
-          <p> $$ \lim_{x \to 2^y} f(x) = 5 $$</p>
+          <p> $$ \begin{eqnarray*}
+            & \int(F_i x_k - F_k x_i)\,dV = & \\
+            & \qquad=\oint(u_{il}x_k-u_{kl}x_i)\,df_l &
+            \end{eqnarray*}
+             $$</p>
         </p>
       </div>
       {% block content %}
