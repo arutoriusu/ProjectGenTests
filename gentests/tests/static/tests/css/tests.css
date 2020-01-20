@@ -9,16 +9,25 @@ div {
 }
 .divTopPanel div { 
     width: 80px; 
-    display:inline-block; 
+    display:inline-block;
+    
 }
+.menu div { 
+    width: 80px; 
+    display:inline-block;
+    color: azure;
+}
+A.whiteClassA:visited {text-decoration: none; color: rgb(255, 255, 255);}
+A.whiteClassA:active {text-decoration: none; color: rgb(38, 0, 255);}
+A.whiteClassA:hover {text-decoration: underline; color: rgb(38, 0, 255);}
 A {
-    color: #ffffff; /* Цвет обычной ссылки */
+    color: #000000; /* Цвет обычной ссылки */
 }
 A:visited {
-    color: #ffffff; /* Цвет посещенной ссылки */
+    color: #000000; /* Цвет посещенной ссылки */
 }
 A:hover {
-    color: #000000; /* Цвет ссылки при наведении на нее курсора мыши */  
+    color: #03e6f7; /* Цвет ссылки при наведении на нее курсора мыши */  
 }
 #e2_4 {
     font-family: 'Alatsi', sans-serif;
@@ -66,7 +75,7 @@ A:hover {
     top: 25px;
 }
 #e1_19 {
-    box-shadow:0px 8px 20px rgba(0, 0, 0, 0.2800000011920929);
+    box-shadow:0px 8px 20px rgba(255, 255, 255, 0.918);
     background-color:rgba(255, 255, 255, 1);
     opacity:1;
     width:272px;

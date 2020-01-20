@@ -1,0 +1,24 @@
+{% extends 'base/wrapper.html' %}
+
+{% block content %}
+
+  {% if user.is_authenticated %}
+    <a href="{% url 'test_new' %}" class="btn btn-primary btn-lg">Создать контрольную</a>
+  {% endif %}
+
+  <h3>Мои контрольные</h3>
+
+  {% for test in object_list %}
+    <div class="post">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{test.theme_of_test}}</h5>
+              <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary">Перейти</a>
+              <div class="date">
+                <h5>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
+              </div>
+            </div>
+          </div>
+    </div>
+  {% endfor %}
+{% endblock %}

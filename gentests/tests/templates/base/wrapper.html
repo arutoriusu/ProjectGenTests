@@ -1,5 +1,7 @@
 {% load static %}
 {% load mathjax %}
+{% mathjax_scripts %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,43 +14,48 @@
   <link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{% static 'tests/css/tests.css' %}">
-  {% mathjax_scripts %}
+
 </head>
 <body>
   <div id="e2_4" class="divTopPanel">
       <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link actionPanelSearch" href="#">Поиск контрольных</a>
+            <a class="nav-link" href="#">Поиск контрольных</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link actionPanelCreate" href="#">Создать контрольную</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link actionPanelBrowse" href="#">Банк задач</a>
+            <a class="nav-link" href="#">Помощь</a>
           </li>
       </ul>
-      <div><a href="/news" class="btn btn-primary btn-lg signin ">Войти </a></div>
-      <div><a href="/news" class="btn btn-primary btn-lg signup ">Зарегистрироваться </a> </div> 
+      {% if user.is_authenticated or display_user %}
+        <div><a href="#" class="dropdown">{{ user.username }} {{ display_user }}</a></div>
+        <div><a href="accounts/logout/" class="btn btn-primary btn-lg signin ">Выйти </a></div>
+      {% else %}
+        <div><a href="accounts/login/" class="btn btn-primary btn-lg signin ">Войти </a></div>
+        <div><a href="registration/" class="btn btn-primary btn-lg signup ">Зарегистрироваться </a> </div> 
+      {% endif %}
+      
   </div>
   <div class="container-fluid">
       <div class="row">
           <header class="col-md-3">
           <nav class="sidebar-sticky bg-dark navbar-expand-md">
-              <a href="#" class="logo navbar-brand">Меню</a>
+              <a href="{% url 'index' %}" class="logo navbar-brand whiteClassA">Главная</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
               </button>
   
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto flex-column">
+                  <li class="nav-item">
+                  </li>
                   <li class="nav-item active">
-                  <a href="" class="nav-link">Контрольные работы</a>
+                  <a href="" class="nav-link whiteClassA">Банк задач</a>
                   </li>
                   <li class="nav-item">
-                  <a href="" class="nav-link">Мои контрольные</a>
+                  <a href="/test/list/" class="nav-link whiteClassA">Мои контрольные</a>
                   </li>
                   <li class="nav-item">
-                  <a href="" class="nav-link">Сохраненные задачи</a>
+                  <a href="" class="nav-link whiteClassA">Сохраненные задачи</a>
                   </li>
                   <li class="nav-item">
                     <a href="" class="nav-link"></a>
@@ -57,35 +64,16 @@
               </div>
           </nav>
           </header>
-          <!-- end header -->
-  
-          <main class="col-md-9">
-          <h1>У вас пока нет контрольных</h1>
-          </main>
-          <!-- end main -->
+          {% block header %}
+          {% endblock %}
+          
       </div>
   </div>
+  {% block content %}
 
-  <div class="jumbotron">
-    <div class="container">
-      <h1></h1>
-      <div class="page-header">
-        <p>
-          <a href="{% url 'test_new' %}" class="btn btn-primary btn-lg">Создать контрольную</a>
-          <p> $$ \begin{eqnarray*}
-            & \int(F_i x_k - F_k x_i)\,dV = & \\
-            & \qquad=\oint(u_{il}x_k-u_{kl}x_i)\,df_l &
-            \end{eqnarray*}
-             $$</p>
-        </p>
-      </div>
-      {% block content %}
-      {% endblock %}
-    </div>
-  </div>
+  {% endblock %}
+
   <div class="container">
-    <hr>
-    &copy; Все права защищены 2019
   </div>
 </body>
 </html>

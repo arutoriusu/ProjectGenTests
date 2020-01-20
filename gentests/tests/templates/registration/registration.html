@@ -1,0 +1,29 @@
+{% extends 'base/wrapper.html' %}
+
+{% block content %}
+
+  {% if form.errors %}
+        <p>Ошибка</p>
+  {% endif %}
+
+  <form method="post" action="{% url 'registration' %}">
+    {% csrf_token %}
+        <table>
+        <tr>
+            <td>{{ user_form.username.label_tag }}</td>
+            <td>{{ user_form.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ user_form.password.label_tag }}</td>
+            <td>{{ user_form.password }}</td>
+        </tr>
+        <tr>
+            <td>{{ user_form.password2.label_tag }}</td>
+            <td>{{ user_form.password2 }}</td>
+        </tr>
+        </table>
+
+        <input type="submit" value="Зарегистрироваться" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+{% endblock %}

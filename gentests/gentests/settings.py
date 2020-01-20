@@ -25,7 +25,7 @@ SECRET_KEY = 'v7r1i1ztr1y-j!*!%=*24@yzglrya5$09#vv#4of&_6qobff)y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -122,3 +122,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MATHJAX_ENABLED=True
+
+LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000'
