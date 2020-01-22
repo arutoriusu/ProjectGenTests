@@ -8,25 +8,14 @@ from django.dispatch import receiver
 from django.utils import timezone
 
 
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profiles', unique=True, )
-
-#     class Meta:
-#         verbose_name = "profile"
-#         verbose_name_plural = "profiles"
-
-#     def __str__(self):
-#         return f'{self.user}'
-
 def get_default_user():
-    default_user = User.objects.filter(username="teacher").first()
+    default_user = User.objects.filter(username="admin").first()
     assert default_user is not None
     return default_user.pk
 
 
 class Test(models.Model):
     theme_of_test = models.CharField(max_length=30)
-    #profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='tests', )
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=get_default_user)
     added_date = models.DateTimeField(default=timezone.now)
 
@@ -39,8 +28,8 @@ class Test(models.Model):
 
 
 class Variant(models.Model):
-    number_of_variants = models.IntegerField()
-    test = models.ForeignKey(to=Test, on_delete=models.CASCADE, related_name='variants', default=1)
+    test = models.ForeignKey(to=Test, on_delete=models.CASCADE, related_name='variants', )
+    number_of_variant = models.CharField(max_length=2, default="1")
 
     class Meta:
         verbose_name = "variant"
@@ -62,7 +51,7 @@ class Task(models.Model):
     question = models.CharField(max_length=200)
     answer = models.CharField(max_length=200)
     img = models.ImageField(blank=True, null=True)
-    variant = models.ManyToManyField(to=Variant, related_name='tasks')
+    variant = models.ForeignKey(Variant, on_delete=models.CASCADE, related_name='tasks', default=1)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks', default=1)
     tag = models.ManyToManyField(to=Tag, related_name='tasks')
     added_date = models.DateTimeField(default=timezone.now)
@@ -73,12 +62,3 @@ class Task(models.Model):
 
     def __str__(self):
         return f'{self.question}'
-
-
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         Profile.objects.create(user=instance)
-
-
-# post_save.connect(create_user_profile, sender=settings.AUTH_USER_MODEL)

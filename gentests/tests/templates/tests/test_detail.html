@@ -6,18 +6,18 @@
             {{ test.added_date }}
         </div>
         <h1>{{ test.theme_of_test }}</h1>
-        <a class="btn btn-primary btn-lg" href="{% url 'task_new' pk=test.pk %}">Добавить задачу</a>
+        <a class="btn btn-primary btn-lg" href="{% url 'test_edit' pk=test.pk %}">Переименовать контрольную</a>
+        <a class="btn btn-primary btn-lg" href="{% url 'test_delete' pk=test.pk %}">Удалить контрольную</a>
+        <a class="btn btn-primary btn-lg" href="{% url 'variant_new' pk=test.pk %}">Добавить вариант</a>
     </div>
 
-    {% for task in tasks.all %}
+    {% for variant in variants.all %}
     <div class="post">
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-              <h5 class="card-title">{{task.question}}</h5>
-              <!-- <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary">Перейти</a> -->
-              <div class="date">
-                <h5>{{task.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
-              </div>
+              <h5 class="card-title">{{variant.number_of_variant}}</h5>
+              <a href="{% url 'variant_detail' pk=test.pk pk2=variant.pk %}" class="btn btn-primary">Перейти</a>
+              <a class="btn btn-primary" href="{% url 'variant_delete' pk=test.pk pk2=variant.pk %}">Удалить вариант</a>
             </div>
           </div>
     </div>

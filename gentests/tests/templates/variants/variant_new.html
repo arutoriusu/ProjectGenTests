@@ -1,9 +1,9 @@
 {% extends 'base/wrapper.html' %}
 
 {% block content %}
-<h1>Новая задача</h1>
+<h1>Новая вариант</h1>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-dark">Сохранить</button>
-    </form> 
+    </form>
 {% endblock %}

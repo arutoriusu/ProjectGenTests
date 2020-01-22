@@ -20,18 +20,18 @@
   <div id="e2_4" class="divTopPanel">
       <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="#">Поиск контрольных</a>
+            <a href="#" class="btn btn-primary btn-lg nav-link ">Поиск контрольных </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Помощь</a>
+            <a href="#" class="btn btn-primary btn-lg nav-link ">Помощь </a>
           </li>
       </ul>
       {% if user.is_authenticated or display_user %}
-        <div><a href="#" class="dropdown">{{ user.username }} {{ display_user }}</a></div>
-        <div><a href="accounts/logout/" class="btn btn-primary btn-lg signin ">Выйти </a></div>
+        <div><a href="#" class="whiteClassA nav-link active">{{ user.username }} {{ display_user }}</a></div>
+        <div><a href="{% url "logout" %}" class="btn btn-primary btn-lg signin ">Выйти </a></div>
       {% else %}
-        <div><a href="accounts/login/" class="btn btn-primary btn-lg signin ">Войти </a></div>
-        <div><a href="registration/" class="btn btn-primary btn-lg signup ">Зарегистрироваться </a> </div> 
+        <div><a href="{% url "login" %}" class="btn btn-primary btn-lg signin ">Войти </a></div>
+        <div><a href="{% url "registration" %}" class="btn btn-primary btn-lg signup ">Зарегистрироваться </a> </div> 
       {% endif %}
       
   </div>

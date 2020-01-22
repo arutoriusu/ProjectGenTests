@@ -13,7 +13,9 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">{{test.theme_of_test}}</h5>
-              <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary">Перейти</a>
+              <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary btn-lg">Перейти</a>
+              <a class="btn btn-primary btn-lg" href="{% url 'test_edit' pk=test.pk %}">Переименовать</a>
+              <a class="btn btn-primary btn-lg" href="{% url 'test_delete' pk=test.pk %}">Удалить</a>
               <div class="date">
                 <h5>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
               </div>

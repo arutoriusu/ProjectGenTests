@@ -8,7 +8,7 @@ div {
     margin: 10px;  
 }
 .divTopPanel div { 
-    width: 80px; 
+    width: 80px;
     display:inline-block;
     
 }
@@ -18,8 +18,8 @@ div {
     color: azure;
 }
 A.whiteClassA:visited {text-decoration: none; color: rgb(255, 255, 255);}
-A.whiteClassA:active {text-decoration: none; color: rgb(38, 0, 255);}
-A.whiteClassA:hover {text-decoration: underline; color: rgb(38, 0, 255);}
+A.whiteClassA:active {text-decoration: none; color: rgb(255, 255, 255);}
+A.whiteClassA:hover {text-decoration: underline; color: rgb(255, 255, 255);}
 A {
     color: #000000; /* Цвет обычной ссылки */
 }
@@ -34,7 +34,7 @@ A:hover {
     background-color:rgba(66.00000366568565, 87.00000241398811, 178.00000458955765, 1);
     opacity:1;
     width:1200px;
-    height:80px;
+    height:100px;
 }
 .signup {
     font-family: 'Roboto', sans-serif;

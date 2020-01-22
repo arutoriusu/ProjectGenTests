@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django import forms
 from .models import Test, Variant, Task, Tag
 from django.contrib.auth.models import User
@@ -8,13 +10,6 @@ class TestForm(forms.ModelForm):
     class Meta:
         model = Test
         fields = ['theme_of_test', ]
-
-
-class VariantForm(forms.ModelForm):
-
-    class Meta:
-        model = Variant
-        fields = ['number_of_variants', ]
 
 
 class TaskForm(forms.ModelForm):
