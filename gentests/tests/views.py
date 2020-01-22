@@ -78,7 +78,7 @@ def task_new(request, pk, pk2):
 			task.added_date = timezone.now()
 			task.variant = variant
 			task.save()
-			return redirect('variant_detail', pk=task.pk, pk2=variant.pk)
+			return redirect('variant_detail', pk=test.pk, pk2=variant.pk)
 	else:
 		form = TaskForm
 	return render(request, "tasks/task_new.html", {"form": form})
