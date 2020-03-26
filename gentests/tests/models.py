@@ -18,6 +18,7 @@ class Test(models.Model):
     theme_of_test = models.CharField(max_length=30)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=get_default_user)
     added_date = models.DateTimeField(default=timezone.now)
+    number_of_variant = models.CharField(max_length=2, default="1")
 
     class Meta:
         verbose_name = "test"

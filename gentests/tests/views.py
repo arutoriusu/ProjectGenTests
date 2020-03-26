@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 
 
 def index(request, username=None):
@@ -23,6 +24,17 @@ def index(request, username=None):
 
 def start(request):
 	return render(request, "tests/start.html")
+
+class SearchResultsView(ListView):
+	model = Test
+	template_name = "base/search_results.html"
+
+	def get_queryset(self):
+		query = self.request.GET.get('q')
+		object_list = Test.objects.filter(
+			Q(theme_of_test__icontains=query)
+		)
+		return object_list
 
 def registration(request):
     if request.method == 'POST':
@@ -64,6 +76,11 @@ def test_detail(request, pk):
 	variants = test.variants
 	return render(request, 'tests/test_detail.html', {'test': test, 'variants': variants})
 
+def test_print(request, pk):
+	test = get_object_or_404(Test, pk=pk)
+	variants = test.variants
+	return render(request, 'tests/test_print.html', {'test': test, 'variants': variants})
+
 @login_required
 def task_new(request, pk, pk2):
 	test = get_object_or_404(Test, pk=pk)
@@ -99,6 +116,12 @@ def variant_detail(request, pk, pk2):
 	variant = get_object_or_404(Variant, pk=pk2)
 	tasks = variant.tasks
 	return render(request, 'variants/variant_detail.html', {'test': test, 'variant': variant, 'tasks': tasks})
+
+def variant_print(request, pk, pk2):
+	test = get_object_or_404(Test, pk=pk)
+	variant = get_object_or_404(Variant, pk=pk2)
+	tasks = variant.tasks
+	return render(request, 'variants/variant_print.html', {'test': test, 'variant': variant, 'tasks': tasks})
 
 @login_required
 def variant_delete(request, pk, pk2):

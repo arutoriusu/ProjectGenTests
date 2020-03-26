@@ -13,6 +13,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'tests/css/bootstrap.min.css' %}">
   <link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
   <link rel="stylesheet" type="text/css" href="{% static 'tests/css/tests.css' %}">
 
 </head>
@@ -20,18 +21,21 @@
   <div id="e2_4" class="divTopPanel">
       <ul class="nav">
           <li class="nav-item">
-            <a href="#" class="btn btn-primary btn-lg nav-link ">Поиск контрольных </a>
+            <!-- <a href="search/" class="btn btn-primary btn-lg nav-link ">Поиск контрольных </a> -->
+            <form action="search/" method="get">
+              <input name="q" type="text" placeholder="Search...">
+            </form>
           </li>
           <li class="nav-item">
             <a href="#" class="btn btn-primary btn-lg nav-link ">Помощь </a>
           </li>
       </ul>
       {% if user.is_authenticated or display_user %}
-        <div><a href="#" class="whiteClassA nav-link active">{{ user.username }} {{ display_user }}</a></div>
-        <div><a href="{% url "logout" %}" class="btn btn-primary btn-lg signin ">Выйти </a></div>
+        <div><a href="#" class="whiteClassA nav-link active"> {{ user.username }} {{ display_user }}</a></div>
+        <div><a href="{% url 'logout' %}" class="btn btn-primary btn-lg signin ">Выйти </a></div>
       {% else %}
-        <div><a href="{% url "login" %}" class="btn btn-primary btn-lg signin ">Войти </a></div>
-        <div><a href="{% url "registration" %}" class="btn btn-primary btn-lg signup ">Зарегистрироваться </a> </div> 
+        <div><a href="{% url 'login' %}" class="btn btn-primary btn-lg signin ">Войти </a></div>
+        <div><a href="{% url 'registration' %}" class="btn btn-primary btn-lg signup ">Зарегистрироваться </a> </div> 
       {% endif %}
       
   </div>
@@ -49,7 +53,7 @@
                   <li class="nav-item">
                   </li>
                   <li class="nav-item active">
-                  <a href="" class="nav-link whiteClassA">Банк задач</a>
+                  <a href="/tasks/list/" class="nav-link whiteClassA">Банк задач</a>
                   </li>
                   <li class="nav-item">
                   <a href="/test/list/" class="nav-link whiteClassA">Мои контрольные</a>

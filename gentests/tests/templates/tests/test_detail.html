@@ -1,11 +1,14 @@
 {% extends 'base/wrapper.html' %}
 
 {% block content %}
+    <h3>Мои контрольные</h3>
     <div class="post">
-        <div class="date">
-            {{ test.added_date }}
-        </div>
+        
         <h1>{{ test.theme_of_test }}</h1>
+        <div class="date">
+            Добавлено {{ test.added_date }}
+        </div>
+        <a class="btn btn-primary btn-lg" href="{% url 'test_print' pk=test.pk %}">Распечатать контрольную</a>
         <a class="btn btn-primary btn-lg" href="{% url 'test_edit' pk=test.pk %}">Переименовать контрольную</a>
         <a class="btn btn-primary btn-lg" href="{% url 'test_delete' pk=test.pk %}">Удалить контрольную</a>
         <a class="btn btn-primary btn-lg" href="{% url 'variant_new' pk=test.pk %}">Добавить вариант</a>

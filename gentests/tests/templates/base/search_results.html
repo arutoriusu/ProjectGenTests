@@ -1,0 +1,14 @@
+{% extends 'base/wrapper.html' %}
+
+{% block content %}
+<h1>Результаты поиска</h1>
+ 
+<ul>
+  {% for test in object_list %}
+    <li>
+      {{ test.theme_of_test }}
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
