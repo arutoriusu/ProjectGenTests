@@ -7,6 +7,9 @@
             <div class="card" style="width: 18rem;">
               <div class="card-body">
                 <h5 class="card-title">{{test.theme_of_test}}</h5>
+                <h5 class="card-title">{{}} вариантов</h5>
+                <h5 class="card-title">{{test.user}}</h5>
+
                 <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary">Перейти</a>
                 <div class="date">
                   <h5>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
