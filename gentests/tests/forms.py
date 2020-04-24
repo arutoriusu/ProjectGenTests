@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from captcha.fields import CaptchaField
 from django import forms
 from .models import Test, Variant, Task, Tag
 from django.contrib.auth.models import User
@@ -13,6 +14,8 @@ class TestForm(forms.ModelForm):
 
 
 class TaskForm(forms.ModelForm):
+    question = forms.CharField(widget=forms.Textarea(attrs={'cols': 50, 'rows': 40}))
+    answer = forms.CharField(widget=forms.Textarea(attrs={'cols': 50, 'rows': 40}))
 
     class Meta:
         model = Task
@@ -29,6 +32,7 @@ class TagForm(forms.ModelForm):
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Повтори пароль', widget=forms.PasswordInput)
+    captcha = CaptchaField()
 
     class Meta:
         model = User

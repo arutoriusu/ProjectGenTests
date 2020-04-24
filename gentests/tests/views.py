@@ -14,7 +14,14 @@ def index(request, username=None):
     display_user = ""
     if request.user.is_authenticated:
         display_user = request.user
-    tests = Test.objects
+    tests = Test.objects.all()
+    for test in tests:
+        test.count_of_variants = test.variants.count()
+        count_of_tasks = 0
+        for variant in test.variants.all():
+            count_of_tasks += variant.tasks.count()
+        test.count_of_tasks = count_of_tasks
+        test.save()
     user = None
     if username is not None:
         user = get_object_or_404(User, username=username)

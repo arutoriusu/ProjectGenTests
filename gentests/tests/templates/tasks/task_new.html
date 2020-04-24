@@ -3,7 +3,9 @@
 {% block content %}
 <h1>Новая задача</h1>
     <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
+        <!-- {{ form.as_p }} -->
+        {{ form.question }}
+        {{ form.answer }}
         <button type="submit" class="save btn btn-dark">Сохранить</button>
     </form> 
 {% endblock %}

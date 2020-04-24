@@ -1,11 +1,36 @@
 {% extends 'base/wrapper.html' %}
-
+{% load static %}
 {% block content %}
 
   {% if form.errors %}
         <p>Ошибка</p>
   {% endif %}
+  <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript">
 
+    $(document).ready(function() {
+        // Add refresh button after field (this can be done in the template as well)
+        // {#$('img.captcha').after(#}
+        // {#        $('<a href="#void" class="captcha-refresh">Refresh</a>')#}
+        // {#        );#}
+    
+        // Click-handler for the refresh-link
+        $('.captcha-refresh').click(function(){
+            var $form = $(this).parents('form');
+            var url = location.protocol + "//" + window.location.hostname + ":"
+                      + location.port + "/captcha/refresh/";
+    
+            // Make the AJAX-call
+            $.getJSON(url, {}, function(json) {
+                $form.find('input[name="captcha_0"]').val(json.key);
+                $form.find('img.captcha').attr('src', json.image_url);
+            });
+    
+            return false;
+        });
+    });
+    
+    </script>
   <form method="post" action="{% url 'registration' %}">
     {% csrf_token %}
         <table>
@@ -18,10 +43,15 @@
             <td>{{ user_form.password }}</td>
         </tr>
         <tr>
-            <td>{{ user_form.password2.label_tag }}</td>
-            <td>{{ user_form.password2 }}</td>
+            <td>{{ user_form.captcha  }}</td>
+        </tr>
+        <tr>
+            <td>{{ user_form.captcha.errors }}</td>
         </tr>
         </table>
+        <button class='captcha-refresh'>
+            <img src="{% static 'tests/img/reload.png' %} " width="20" height="20">
+        </button>
 
         <input type="submit" value="Зарегистрироваться" />
         <input type="hidden" name="next" value="{{ next }}" />

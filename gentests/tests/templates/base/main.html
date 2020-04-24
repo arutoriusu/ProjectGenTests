@@ -6,8 +6,8 @@
           <div class="post">
             <div class="card" style="width: 18rem;">
               <div class="card-body">
-                <h5 class="card-title">{{test.theme_of_test}}</h5>
-                <h5 class="card-title">{{}} вариантов</h5>
+                <h3 class="card-title">{{test.theme_of_test}}</h5>
+                <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
                 <h5 class="card-title">{{test.user}}</h5>
 
                 <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary">Перейти</a>
