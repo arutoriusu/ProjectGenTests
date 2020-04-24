@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
+from django.db.models import Q
 
 
 def index(request, username=None):
@@ -77,6 +78,9 @@ def test_new(request):
 	else:
 		form = TestForm
 	return render(request, "tests/test_new.html", {"form": form})
+
+def tag_new(request, pk):
+	return render(request, "tags/tag_new.html")
 
 def test_detail(request, pk):
 	test = get_object_or_404(Test, pk=pk)

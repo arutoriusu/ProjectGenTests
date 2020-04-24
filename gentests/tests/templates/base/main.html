@@ -2,6 +2,8 @@
 
 {% block header %}
     <main class="col-md-9">
+
+      {% if user.is_authenticated or display_user %}
         {% for test in tests %}
           <div class="post">
             <div class="card" style="width: 18rem;">
@@ -18,6 +20,8 @@
             </div>
           </div>
         {% endfor %}
+      {% endif %}
+        
     </main>
 {% endblock %}
 

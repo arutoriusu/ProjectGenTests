@@ -20,6 +20,7 @@ urlpatterns = [
     
     url(r'^start/$', views.index, name='start'),
     url(r'^search/$', SearchResultsView.as_view(queryset=Task.objects.all().order_by("-added_date")), name='search_results'),
+    url(r'^test/(?P<pk>\d+)/tag/new/$', views.tag_new, name='tag_new'),
     url(r'^test/new/$', views.test_new, name='test_new'),
     url(r'^test/(?P<pk>\d+)/$', views.test_detail, name='test_detail'),
     url(r'^test/(?P<pk>\d+)/edit/$', views.test_edit, name='test_edit'),
