@@ -20,6 +20,7 @@ class Test(models.Model):
     added_date = models.DateTimeField(default=timezone.now)
     count_of_variants = models.IntegerField(default=0)
     count_of_tasks = models.IntegerField(default=0)
+    category = models.CharField(max_length=50, default='Алгебра')
 
     class Meta:
         verbose_name = "test"

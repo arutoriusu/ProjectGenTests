@@ -23,4 +23,11 @@ urlpatterns = [
     url(r'^accounts/login/', views.LoginView.as_view(), name='login'),
     url(r'^accounts/logout/', views.LogoutView.as_view(next_page='/'), name='logout'),
     url(r'^captcha/', include('captcha.urls')),
+    url(r'^summernote/', include('django_summernote.urls')),
 ]
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

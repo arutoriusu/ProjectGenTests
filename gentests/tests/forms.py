@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django_summernote.widgets import SummernoteWidget
 from captcha.fields import CaptchaField
 from django import forms
 from .models import Test, Variant, Task, Tag
@@ -14,8 +15,9 @@ class TestForm(forms.ModelForm):
 
 
 class TaskForm(forms.ModelForm):
-    question = forms.CharField(widget=forms.Textarea(attrs={'cols': 50, 'rows': 40}))
-    answer = forms.CharField(widget=forms.Textarea(attrs={'cols': 50, 'rows': 40}))
+    #question = forms.CharField(widget=forms.Textarea(attrs={'cols': 50, 'rows': 40}))
+    question = forms.CharField(widget=SummernoteWidget())
+    answer = forms.CharField(widget=SummernoteWidget())
 
     class Meta:
         model = Task
