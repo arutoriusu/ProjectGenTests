@@ -1,7 +1,7 @@
 {% extends 'base/wrapper.html' %}
 
-{% block content %}
-
+{% block header %}
+<main class="col-md-9">
   {% if form.errors %}
         <p>Логин или пароль не совпадают</p>
   {% endif %}
@@ -23,4 +23,5 @@
         <a href="{% url 'registration' %}" class="btn btn-secondary btn-lg">Нет учётной записи?</a>
         <input type="hidden" name="next" value="{{ next }}" />
     </form>
+</main>
 {% endblock %}

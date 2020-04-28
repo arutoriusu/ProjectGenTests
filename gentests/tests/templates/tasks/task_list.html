@@ -1,7 +1,7 @@
 {% extends 'base/wrapper.html' %}
 
-{% block content %}
-
+{% block header %}
+<main class="col-md-9">
   {% for task in object_list %}
     <div class="post">
         <div class="card" style="width: 35rem;">
@@ -15,4 +15,5 @@
           </div>
     </div>
   {% endfor %}
+</main>
 {% endblock %}

@@ -1,15 +1,15 @@
 {% extends 'base/wrapper.html' %}
 
-{% block content %}
-<h1>Результаты поиска</h1>
- 
-<ul>
-  {% for test in object_list %}
-    <li>
-      <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary btn-lg">{{ test.theme_of_test }}</a>
-      
-    </li>
-  {% endfor %}
-</ul>
-
+{% block header %}
+<main class="col-md-9">
+  <h1>Результаты поиска</h1>
+  <ul>
+    {% for test in object_list %}
+      <li>
+        <a href="{% url 'test_detail' pk=test.pk %}">{{ test.theme_of_test }}</a>
+        
+      </li>
+    {% endfor %}
+  </ul>
+</main>
 {% endblock %}

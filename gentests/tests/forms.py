@@ -11,7 +11,7 @@ class TestForm(forms.ModelForm):
 
     class Meta:
         model = Test
-        fields = ['theme_of_test', ]
+        fields = ['theme_of_test', 'category', ]
 
 
 class TaskForm(forms.ModelForm):
@@ -44,5 +44,5 @@ class UserRegistrationForm(forms.ModelForm):
     def clean_password2(self):
         cd = self.cleaned_data
         if cd['password'] != cd['password2']:
-            raise forms.ValidationError('Passwords don\'t match.')
+            raise forms.ValidationError('Пароли не совпадают')
         return cd['password2']

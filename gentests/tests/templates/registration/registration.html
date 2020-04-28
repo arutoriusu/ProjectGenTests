@@ -1,9 +1,9 @@
 {% extends 'base/wrapper.html' %}
 {% load static %}
-{% block content %}
-
+{% block header %}
+<main class="col-md-9">
   {% if form.errors %}
-        <p>Ошибка</p>
+    <p>Ошибка</p>
   {% endif %}
   <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -56,4 +56,5 @@
         <input type="submit" value="Зарегистрироваться" />
         <input type="hidden" name="next" value="{{ next }}" />
     </form>
+</main>
 {% endblock %}

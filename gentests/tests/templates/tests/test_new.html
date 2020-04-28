@@ -1,9 +1,12 @@
 {% extends 'base/wrapper.html' %}
 
-{% block content %}
-<h1>Новая контрольная</h1>
+{% block header %}
+<main class="col-md-9">
+    <h1>Новая контрольная</h1>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-dark">Сохранить</button>
     </form>
+</main>
+
 {% endblock %}

@@ -2,7 +2,22 @@
 
 {% block header %}
     <main class="col-md-9">
-
+      <div class="jumbotron">
+        <div class="container">
+          <h1></h1>
+          <div class="page-header">
+            <p>
+              <a href="{% url 'test_new' %}" class="btn btn-primary btn-lg">Создать контрольную</a>
+              <p>  \begin{eqnarray*}
+                & \int(F_i x_k - F_k x_i)\,dV = & \\
+                & \qquad=\oint(u_{il}x_k-u_{kl}x_i)\,df_l &
+                \end{eqnarray*}
+                 </p>
+            </p>
+          </div>
+          
+        </div>
+      </div>
       {% if user.is_authenticated or display_user %}
         {% for test in tests %}
           <div class="post">
@@ -26,20 +41,5 @@
 {% endblock %}
 
 {% block content %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1></h1>
-      <div class="page-header">
-        <p>
-          <a href="{% url 'test_new' %}" class="btn btn-primary btn-lg">Создать контрольную</a>
-          <p> $$ \begin{eqnarray*}
-            & \int(F_i x_k - F_k x_i)\,dV = & \\
-            & \qquad=\oint(u_{il}x_k-u_{kl}x_i)\,df_l &
-            \end{eqnarray*}
-             $$</p>
-        </p>
-      </div>
-      
-    </div>
-  </div>
+  
 {% endblock %}
