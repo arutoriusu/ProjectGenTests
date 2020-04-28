@@ -15,13 +15,14 @@ class TestForm(forms.ModelForm):
 
 
 class TaskForm(forms.ModelForm):
-    #question = forms.CharField(widget=forms.Textarea(attrs={'cols': 50, 'rows': 40}))
-    question = forms.CharField(widget=SummernoteWidget())
-    answer = forms.CharField(widget=SummernoteWidget())
 
     class Meta:
         model = Task
         fields = ['question', 'answer', ]
+        widgets = {
+            'question': SummernoteWidget(),
+            'answer': SummernoteWidget(),
+        }
 
 
 class TagForm(forms.ModelForm):

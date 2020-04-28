@@ -158,3 +158,5 @@ SUMMERNOTE_CONFIG = {
     },
     'disable_attachment': True,
 }
+
+SUMMERNOTE_THEME = 'bs4'

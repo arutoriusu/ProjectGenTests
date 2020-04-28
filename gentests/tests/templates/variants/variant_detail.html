@@ -37,8 +37,8 @@
                                             <div class="card-body">
                                             <!-- <h4 class="card-title">Задача</h4> -->
                                             <div class="card-block">
-                                                <h5 class="card-text">{{ task.question }}</h5>
-                                                <h5 class="card-text">Ответ: {{ task.answer }}</h5>
+                                                <h5 class="card-text">{{ task.question|safe }}</h5>
+                                                <h5 class="card-text">Ответ: {{ task.answer|safe }}</h5>
                                             </div>
                                             
                                             <a class="btn btn-primary btn-lg" href="{% url 'task_edit' pk=test.pk pk2=variant.pk pk3=task.pk %}">Изменить</a>
