@@ -32,47 +32,53 @@ A:hover {
 #e2_4 {
     font-family: 'Alatsi', sans-serif;
     background-color:rgba(66.00000366568565, 87.00000241398811, 178.00000458955765, 1);
-    opacity:1;
     width:1100px;
     height:100px;
 }
 .signup {
     font-family: 'Roboto', sans-serif;
     background-color: rgb(46, 240, 240);
-    display: inline-block;
-    position: fixed;
-    left: 76%;
+    position: fixed; /*position: absolute;*/
+    /* display: inline-block;
+    width: 138px;
+    height: 35px; */
+    left: 870px;
     top: 25px;
+    
+    border-radius: 0px;
+    z-index: 1;
+}
+.searchButton {
+    font-family: 'Roboto', sans-serif;
+    background-color:rgb(23, 101, 245);
+    position: absolute;
+    left: 250px;
+    top: 25px;
+    border-radius: 0px;
+}
+.helpButton {
+    font-family: 'Roboto', sans-serif;
+    background-color:rgb(23, 101, 245);
+    position: absolute;
+    left: 360px;
+    top: 25px;
+    border-radius: 0px;
+    z-index: 1;
+}
+.search {
+    position: absolute;
+    top: 25px;
+    left: 20;
+    width: auto;
 }
 .signin {
     font-family: 'Roboto', sans-serif;
-    background-color:rgba(66.00000366568565, 87.00000241398811, 178.00000458955765, 1);
-    display: inline-block;
+    background-color:rgb(23, 101, 245);
+    /* display: inline-block; */
     position: fixed;
-    left: 68%;
+    left: 760px;
     top: 25px;
-}
-.actionPanelSearch {
-    font-family: 'Roboto', sans-serif;
-    display: inline-block;
-    position: fixed;
-    left: 25%;
-    top: 25px;
-    
-}
-.actionPanelCreate {
-    font-family: 'Roboto', sans-serif;
-    display: inline-block;
-    position: fixed;
-    left: 40%;
-    top: 25px;
-}
-.actionPanelBrowse {
-    font-family: 'Roboto', sans-serif;
-    display: inline-block;
-    position: fixed;
-    left: 55%;
-    top: 25px;
+    z-index: 1;
 }
 #e1_19 {
     box-shadow:0px 8px 20px rgba(255, 255, 255, 0.918);
@@ -129,10 +135,3 @@ body {
     padding: 1.25rem;
     background-color: #fff !important
 }
-/* input {
-    height:200px;
-    width: 1000px;
-    font-size:12pt;
-    padding-right: 20px;
-    padding-top: 0px;
-} */

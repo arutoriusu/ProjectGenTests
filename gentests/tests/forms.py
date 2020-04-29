@@ -11,7 +11,7 @@ class TestForm(forms.ModelForm):
 
     class Meta:
         model = Test
-        fields = ['theme_of_test', 'category', ]
+        fields = ['theme_of_test', ]
 
 
 class TaskForm(forms.ModelForm):

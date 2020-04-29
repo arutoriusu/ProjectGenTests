@@ -22,14 +22,14 @@
       <ul class="nav">
           <li class="nav-item">
             <form action="search/" method="get">
-              <input name="q" class="form-control" type="text" placeholder="Search...">
+              <input name="q" class="form-control search" type="text" placeholder="Search...">
             </form>
           </li>
           <li class="nav-item">
-            <a action="search/" method="get" class="btn btn-primary btn-lg nav-link ">Поиск </a>
+            <a action="search/" method="get" class="btn btn-primary btn-lg searchButton ">Поиск </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="btn btn-primary btn-lg nav-link ">Помощь </a>
+            <a href="#" class="btn btn-primary btn-lg helpButton">Помощь </a>
           </li>
       </ul>
       {% if user.is_authenticated or display_user %}
@@ -70,8 +70,8 @@
               </div>
           </nav>
           <nav class="sidebar-sticky bg-dark navbar-expand-md">
-            <a href="{% url 'index' %}" class="logo navbar-brand whiteClassA">Категории</a>
-            <a href="{% url 'index' %}" class="logo navbar-brand whiteClassA">Элементарная математика</a>
+            <h1 style="color:white;">Категории</h1>
+            <h1 style="color:white;">Элементарная математика</h1>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -97,7 +97,7 @@
                 </li>
             </ul>
             </div>
-            <a href="{% url 'index' %}" class="logo navbar-brand whiteClassA">Высшая математика</a>
+            <h1 style="color:white;">Высшая математика</h1>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto flex-column">
                   <li class="nav-item">
@@ -171,8 +171,5 @@
   {% block content %}
 
   {% endblock %}
-
-  <div class="container">
-  </div>
 </body>
 </html>
