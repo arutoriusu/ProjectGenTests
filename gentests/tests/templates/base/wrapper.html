@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Контрольные</title>
+  <title>Контрольные работы</title>
   <title>border-spacing</title>
   <link rel="stylesheet" type="text/css" href="{% static 'tests/css/bootstrap.min.css' %}">
   <link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
       <ul class="nav">
           <li class="nav-item">
             <form action="search/" method="get">
-              <input name="q" class="form-control search" type="text" placeholder="Search...">
+              <input name="q" class="form-control search" type="text" placeholder="Поиск...">
             </form>
           </li>
           <li class="nav-item">
@@ -31,10 +31,12 @@
           <li class="nav-item">
             <a href="#" class="btn btn-primary btn-lg helpButton">Помощь </a>
           </li>
+          
       </ul>
+      
       {% if user.is_authenticated or display_user %}
-        <div><a href="#" class="whiteClassA nav-link active"> {{ user.username }} {{ display_user }}</a></div>
-        <div><a href="{% url 'logout' %}" class="btn btn-primary btn-lg signin ">Выйти </a></div>
+        <div class="username"><a href="#" class="whiteClassA nav-link active"> {{ user.username }} {{ display_user }}</a></div>
+        <div class="quit"><a href="{% url 'logout' %}" class="btn btn-primary btn-lg quit greyButton ">Выйти </a></div>
       {% else %}
         <div><a href="{% url 'login' %}" class="btn btn-primary btn-lg signin ">Войти </a></div>
         <div><a href="{% url 'registration' %}" class="btn btn-primary btn-lg signup ">Зарегистрироваться </a> </div> 
@@ -54,11 +56,11 @@
               <ul class="navbar-nav mr-auto flex-column">
                   <li class="nav-item">
                   </li>
-                  <li class="nav-item active">
+                  <!-- <li class="nav-item active">
                   <a href="/tasks/list/" class="nav-link whiteClassA">Банк задач</a>
-                  </li>
+                  </li> -->
                   <li class="nav-item">
-                  <a href="/test/list/" class="nav-link whiteClassA">Мои контрольные</a>
+                  <a href="/test/list/" class="nav-link whiteClassA">Мои контрольные работы</a>
                   </li>
                   <li class="nav-item">
                   <a href="" class="nav-link whiteClassA">Избранное</a>

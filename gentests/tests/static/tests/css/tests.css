@@ -1,9 +1,6 @@
 h1 {  
     font-size: 20px;  
-}  
-p {  
-    color: green;  
-}  
+}
 div {  
     margin: 10px;  
 }
@@ -27,18 +24,18 @@ A:visited {
     color: #000000; /* Цвет посещенной ссылки */
 }
 A:hover {
-    color: #03e6f7; /* Цвет ссылки при наведении на нее курсора мыши */  
+    color: #3f3f3f; /* Цвет ссылки при наведении на нее курсора мыши */  
 }
 #e2_4 {
     font-family: 'Alatsi', sans-serif;
-    background-color:rgba(66.00000366568565, 87.00000241398811, 178.00000458955765, 1);
-    width:1100px;
+    background-color: #343a40;
+    width:99%;
     height:100px;
 }
 .signup {
     font-family: 'Roboto', sans-serif;
-    background-color: rgb(46, 240, 240);
-    position: fixed; /*position: absolute;*/
+    background-color: rgb(190, 190, 190);
+    position: absolute;
     /* display: inline-block;
     width: 138px;
     height: 35px; */
@@ -50,7 +47,7 @@ A:hover {
 }
 .searchButton {
     font-family: 'Roboto', sans-serif;
-    background-color:rgb(23, 101, 245);
+    background-color: rgb(190, 190, 190);
     position: absolute;
     left: 250px;
     top: 25px;
@@ -58,7 +55,7 @@ A:hover {
 }
 .helpButton {
     font-family: 'Roboto', sans-serif;
-    background-color:rgb(23, 101, 245);
+    background-color: rgb(190, 190, 190);
     position: absolute;
     left: 360px;
     top: 25px;
@@ -73,12 +70,25 @@ A:hover {
 }
 .signin {
     font-family: 'Roboto', sans-serif;
-    background-color:rgb(23, 101, 245);
+    background-color: rgb(190, 190, 190);
     /* display: inline-block; */
-    position: fixed;
+    position: absolute;
     left: 760px;
     top: 25px;
     z-index: 1;
+}
+.greyButton{
+    background-color: rgb(190, 190, 190);
+}
+.username {
+    position: absolute;
+    top: 25px;
+    right: 130px;
+}
+.quit {
+    position: absolute;
+    right: 20px;
+    top: 10px;
 }
 #e1_19 {
     box-shadow:0px 8px 20px rgba(255, 255, 255, 0.918);

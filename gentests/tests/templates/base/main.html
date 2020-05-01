@@ -7,7 +7,7 @@
           <h1></h1>
           <div class="page-header">
             <p>
-              <a href="{% url 'test_new' %}" class="btn btn-primary btn-lg">Создать контрольную</a>
+              <a href="{% url 'test_new' %}" class="btn btn-primary greyButton">Создать контрольную работу</a>
               <p>  \begin{eqnarray*}
                 & \int(F_i x_k - F_k x_i)\,dV = & \\
                 & \qquad=\oint(u_{il}x_k-u_{kl}x_i)\,df_l &
@@ -19,7 +19,7 @@
         </div>
       </div>
       {% if user.is_authenticated or display_user %}
-      <h2>Последние добавленные контрольные</h2>
+      <h2>Последние добавленные контрольные работы</h2>
         {% for test in tests %}
           <div class="post">
             <div class="card" style="width: 18rem;">
@@ -28,8 +28,8 @@
                 <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
                 <h5 class="card-title">{{test.user}}</h5>
 
-                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary">Перейти</a>
-                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary">Сохранить</a>
+                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Перейти</a>
+                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Сохранить</a>
                 <div class="date">
                   <h5>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
                 </div>
