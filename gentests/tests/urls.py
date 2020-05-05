@@ -6,7 +6,12 @@ from django.views.generic import ListView
 from tests.models import Test, Task
 from .views import SearchResultsView
 
+
 class TestView(ListView):
+    def get_queryset(self):
+        return Test.objects.all()
+
+class MyTestView(ListView):
     def get_queryset(self):
         return Test.objects.filter(user=self.request.user)
 
@@ -34,6 +39,7 @@ urlpatterns = [
     url(r'^test/(?P<pk>\d+)/variant/(?P<pk2>\d+)/task/(?P<pk3>\d+)/edit/$', views.task_edit, name='task_edit'),
     url(r'^test/(?P<pk>\d+)/variant/(?P<pk2>\d+)/task/(?P<pk3>\d+)/delete/$', views.task_delete, name='task_delete'),
     url(r'^test/list/$', TestView.as_view(queryset=Test.objects.all().order_by("-added_date")[:20], template_name = "tests/test_list.html")),
+    url(r'^mytests/list/$', MyTestView.as_view(queryset=Test.objects.all().order_by("-added_date")[:20], template_name = "tests/mytests_list.html")),
     url(r'^tasks/list/$', TaskView.as_view(queryset=Task.objects.all().order_by("-added_date")[:20], template_name = "tasks/task_list.html")),
     url(r'^(?P<username>[\w.@+-]+)/$', views.index, name='index'), # why does it need to place last?
 ]   

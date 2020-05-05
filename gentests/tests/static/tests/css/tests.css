@@ -45,14 +45,6 @@ A:hover {
     border-radius: 0px;
     z-index: 1;
 }
-.searchButton {
-    font-family: 'Roboto', sans-serif;
-    background-color: rgb(190, 190, 190);
-    position: absolute;
-    left: 250px;
-    top: 25px;
-    border-radius: 0px;
-}
 .helpButton {
     font-family: 'Roboto', sans-serif;
     background-color: rgb(190, 190, 190);

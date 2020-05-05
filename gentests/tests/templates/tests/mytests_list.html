@@ -2,8 +2,7 @@
 
 {% block header %}
   <main class="col-md-9">
-    <h3>Популярные контрольные работы</h3>
-    <h3>Последние добавленные контрольные работы</h3>
+    <h3>Мои контрольные работы</h3>
   {% if user.is_authenticated %}
     <a href="{% url 'test_new' %}" class="btn btn-primary btn-lg greyButton">Создать контрольную работу</a>
   {% endif %}
@@ -17,6 +16,8 @@
               <h5 class="card-title">{{test.theme_of_test}}</h5>
               <link>
               <a class="btn btn-primary btn-lg greyButton" href="{% url 'test_detail' pk=test.pk %}" >Перейти</a>
+              <a class="btn btn-primary btn-lg greyButton" href="{% url 'test_edit' pk=test.pk %}">Переименовать</a>
+              <a class="btn btn-primary btn-lg greyButton" href="{% url 'test_delete' pk=test.pk %}">Удалить</a>
               <div class="date">
                 <h7>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h7>
               </div>

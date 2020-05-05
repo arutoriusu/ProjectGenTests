@@ -26,12 +26,8 @@
             </form>
           </li>
           <li class="nav-item">
-            <a action="search/" method="get" class="btn btn-primary btn-lg searchButton ">Поиск </a>
-          </li>
-          <li class="nav-item">
             <a href="#" class="btn btn-primary btn-lg helpButton">Помощь </a>
           </li>
-          
       </ul>
       
       {% if user.is_authenticated or display_user %}
@@ -56,11 +52,11 @@
               <ul class="navbar-nav mr-auto flex-column">
                   <li class="nav-item">
                   </li>
-                  <!-- <li class="nav-item active">
-                  <a href="/tasks/list/" class="nav-link whiteClassA">Банк задач</a>
-                  </li> -->
+                  <li class="nav-item active">
+                  <a href="/test/list/" class="nav-link whiteClassA">Просмотр контрольных работ</a>
+                  </li>
                   <li class="nav-item">
-                  <a href="/test/list/" class="nav-link whiteClassA">Мои контрольные работы</a>
+                  <a href="/mytests/list/" class="nav-link whiteClassA">Мои контрольные работы</a>
                   </li>
                   <li class="nav-item">
                   <a href="" class="nav-link whiteClassA">Избранное</a>
