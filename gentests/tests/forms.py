@@ -4,8 +4,7 @@ from django_summernote.widgets import SummernoteWidget
 from captcha.fields import CaptchaField
 from django import forms
 from .models import Test, Variant, Task, Tag
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm 
+from django.contrib.auth.models import User 
 
 
 class TestForm(forms.ModelForm):
