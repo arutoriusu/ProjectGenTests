@@ -28,7 +28,18 @@ def index(request, username=None):
         user = get_object_or_404(User, username=username)
         tests = tests.filter(user=user)
     tests = tests.order_by("-added_date")
-    return render(request, "base/main.html", {"tests": tests, "user": user, "display_user": display_user})
+    leftArray, rightArray = split_tests_on_arrays(tests)
+    return render(request, "base/main.html", {"leftArray": leftArray, "rightArray": rightArray, "user": user, "display_user": display_user})
+
+def split_tests_on_arrays(tests):
+	leftArray = []
+	rightArray = []
+	for i in range(0,len(tests)):
+		if i % 2 == 0:
+			rightArray.append(tests[i])
+			continue
+		leftArray.append(tests[i])
+	return leftArray, rightArray
 
 def start(request):
 	return render(request, "tests/start.html")

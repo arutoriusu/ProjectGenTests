@@ -20,9 +20,12 @@
       </div>
       {% if user.is_authenticated or display_user %}
       <h2>Последние добавленные контрольные работы</h2>
-        {% for test in tests %}
+      <table>
+        <tr>
+          <td>
+          {% for test in rightArray %}
           <div class="post">
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 18rem; height: 23rem;">
               <div class="card-body">
                 <h3 class="card-title">{{test.theme_of_test}}</h5>
                 <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
@@ -37,6 +40,28 @@
             </div>
           </div>
         {% endfor %}
+          </td>
+          <td>
+          {% for test in leftArray %}
+          <div class="post">
+            <div class="card" style="width: 18rem; height: 23rem;">
+              <div class="card-body">
+                <h3 class="card-title">{{test.theme_of_test}}</h5>
+                <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
+                <h5 class="card-title">{{test.user}}</h5>
+
+                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Перейти</a>
+                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Сохранить</a>
+                <div class="date">
+                  <h5>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+          </td>
+        </tr>
+      </table>
       {% endif %}
         
     </main>
