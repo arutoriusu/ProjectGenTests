@@ -6,12 +6,24 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericRelation
 
 
 def get_default_user():
     default_user = User.objects.filter(username="admin").first()
     assert default_user is not None
     return default_user.pk
+
+
+class Like(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             related_name='likes',
+                             on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
 
 
 class Test(models.Model):
@@ -21,6 +33,7 @@ class Test(models.Model):
     count_of_variants = models.IntegerField(default=0)
     count_of_tasks = models.IntegerField(default=0)
     category = models.CharField(max_length=50)
+    likes = GenericRelation(Like)
 
     class Meta:
         verbose_name = "test"
@@ -28,6 +41,10 @@ class Test(models.Model):
 
     def __str__(self):
         return f'{self.theme_of_test}'
+    
+    @property
+    def total_likes(self):
+        return self.likes.count()
 
 
 class Variant(models.Model):
@@ -58,6 +75,7 @@ class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks', default=1)
     tag = models.ManyToManyField(to=Tag, related_name='tasks')
     added_date = models.DateTimeField(default=timezone.now)
+    likes = GenericRelation(Like)
 
     class Meta:
         verbose_name = "task"
@@ -65,3 +83,7 @@ class Task(models.Model):
 
     def __str__(self):
         return f'{self.question}'
+
+    @property
+    def total_likes(self):
+        return self.likes.count()
