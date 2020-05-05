@@ -4,20 +4,48 @@
   <main class="col-md-9">
     <h3>Популярные контрольные работы</h3>
     <h3>Последние добавленные контрольные работы</h3>
-  {% for test in object_list %}
-    <div class="post">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{test.theme_of_test}}</h5>
-              <link>
-              <a class="btn btn-primary btn-lg greyButton" href="{% url 'test_detail' pk=test.pk %}" >Перейти</a>
-              <div class="date">
-                <h7>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h7>
+  <table>
+        <tr>
+          <td>
+          {% for test in rightArray %}
+          <div class="post">
+            <div class="card" style="width: 18rem; height: 23rem;">
+              <div class="card-body">
+                <h3 class="card-title">{{test.theme_of_test}}</h5>
+                <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
+                <h5 class="card-title">{{test.user}}</h5>
+
+                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Перейти</a>
+                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Сохранить</a>
+                <div class="date">
+                  <h5>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
+                </div>
               </div>
             </div>
           </div>
-    </div>
-  {% endfor %}
+        {% endfor %}
+          </td>
+          <td>
+          {% for test in leftArray %}
+          <div class="post">
+            <div class="card" style="width: 18rem; height: 23rem;">
+              <div class="card-body">
+                <h3 class="card-title">{{test.theme_of_test}}</h5>
+                <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
+                <h5 class="card-title">{{test.user}}</h5>
+
+                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Перейти</a>
+                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Сохранить</a>
+                <div class="date">
+                  <h5>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+          </td>
+        </tr>
+      </table>
   </main>
   <button onclick="window.scroll(0,0);">Наверх</button>
 {% endblock %}

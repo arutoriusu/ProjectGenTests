@@ -31,6 +31,16 @@ def index(request, username=None):
     leftArray, rightArray = split_tests_on_arrays(tests)
     return render(request, "base/main.html", {"leftArray": leftArray, "rightArray": rightArray, "user": user, "display_user": display_user})
 
+def test_list(request):
+	tests = Test.objects.all().order_by('-added_date')
+	leftArray, rightArray = split_tests_on_arrays(tests)
+	return render(request, 'tests/test_list.html', {"leftArray": leftArray, "rightArray": rightArray})
+
+def mytests_list(request):
+	tests = Test.objects.filter(user=request.user).order_by("-added_date")
+	leftArray, rightArray = split_tests_on_arrays(tests)
+	return render(request, 'tests/mytests_list.html', {"leftArray": leftArray, "rightArray": rightArray})
+
 def split_tests_on_arrays(tests):
 	leftArray = []
 	rightArray = []

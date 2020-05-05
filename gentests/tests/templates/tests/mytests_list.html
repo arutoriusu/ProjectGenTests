@@ -6,24 +6,50 @@
   {% if user.is_authenticated %}
     <a href="{% url 'test_new' %}" class="btn btn-primary btn-lg greyButton">Создать контрольную работу</a>
   {% endif %}
+  <table>
+        <tr>
+          <td>
+          {% for test in rightArray %}
+            <div class="post">
+                <div class="card" style="width: 18rem; height: 23rem;">
+                    <div class="card-body">
+                      <h3 class="card-title">{{test.theme_of_test}}</h3>
+                      <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
+                      <link>
+                      <a class="btn btn-primary greyButton blackOnGrey" href="{% url 'test_detail' pk=test.pk %}" >Перейти</a>
+                      <a class="btn btn-primary greyButton blackOnGrey" href="{% url 'test_edit' pk=test.pk %}">Переименовать</a>
+                      <a class="btn btn-primary greyButton blackOnGrey" href="{% url 'test_delete' pk=test.pk %}">Удалить</a>
+                      <div class="date">
+                        <h5>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          {% endfor %}
+          </td>
+
+          <td>
+          {% for test in leftArray %}
+            <div class="post">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h3 class="card-title">{{test.theme_of_test}}</h3>
+                      <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
+                      <link>
+                      <a class="btn btn-primary greyButton" href="{% url 'test_detail' pk=test.pk %}" >Перейти</a>
+                      <a class="btn btn-primary greyButton" href="{% url 'test_edit' pk=test.pk %}">Переименовать</a>
+                      <a class="btn btn-primary greyButton" href="{% url 'test_delete' pk=test.pk %}">Удалить</a>
+                      <div class="date">
+                        <h5>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          {% endfor %}
+          </td>
+        </tr>
+  </table>
 
   
-
-  {% for test in object_list %}
-    <div class="post">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{test.theme_of_test}}</h5>
-              <link>
-              <a class="btn btn-primary btn-lg greyButton" href="{% url 'test_detail' pk=test.pk %}" >Перейти</a>
-              <a class="btn btn-primary btn-lg greyButton" href="{% url 'test_edit' pk=test.pk %}">Переименовать</a>
-              <a class="btn btn-primary btn-lg greyButton" href="{% url 'test_delete' pk=test.pk %}">Удалить</a>
-              <div class="date">
-                <h7>{{test.added_date|date:" Добавлено d.m.y в h:m"}}</h7>
-              </div>
-            </div>
-          </div>
-    </div>
-  {% endfor %}
   </main>
 {% endblock %}

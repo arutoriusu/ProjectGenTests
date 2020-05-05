@@ -4,6 +4,9 @@ h1 {
 div {  
     margin: 10px;  
 }
+.blackOnGrey {
+    color:black;
+}
 .divTopPanel div { 
     width: 80px;
     display:inline-block;

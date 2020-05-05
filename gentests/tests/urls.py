@@ -7,26 +7,18 @@ from tests.models import Test, Task
 from .views import SearchResultsView
 
 
-class TestView(ListView):
-    def get_queryset(self):
-        return Test.objects.all()
-
-class MyTestView(ListView):
-    def get_queryset(self):
-        return Test.objects.filter(user=self.request.user)
-
 class TaskView(ListView):
     def get_queryset(self):
-        return Task.objects.filter(user=self.request.user)
+        return Task.objects.filter(user=self.request.user).order_by("-added_date")
 
 urlpatterns = [
     url(r'^registration/$', views.registration, name='registration'),
     url(r'^$', views.index, name='index'),
-    
     url(r'^start/$', views.index, name='start'),
     url(r'^search/$', SearchResultsView.as_view(queryset=Task.objects.all().order_by("-added_date")), name='search_results'),
     url(r'^test/(?P<pk>\d+)/tag/new/$', views.tag_new, name='tag_new'),
     url(r'^test/new/$', views.test_new, name='test_new'),
+    url(r'^test/list/$', views.test_list, name = "test_list"),
     url(r'^test/(?P<pk>\d+)/$', views.test_detail, name='test_detail'),
     url(r'^test/(?P<pk>\d+)/edit/$', views.test_edit, name='test_edit'),
     url(r'^test/(?P<pk>\d+)/delete/$', views.test_delete, name='test_delete'),
@@ -38,8 +30,7 @@ urlpatterns = [
     url(r'^test/(?P<pk>\d+)/variant/(?P<pk2>\d+)/task/new/$', views.task_new, name='task_new'),
     url(r'^test/(?P<pk>\d+)/variant/(?P<pk2>\d+)/task/(?P<pk3>\d+)/edit/$', views.task_edit, name='task_edit'),
     url(r'^test/(?P<pk>\d+)/variant/(?P<pk2>\d+)/task/(?P<pk3>\d+)/delete/$', views.task_delete, name='task_delete'),
-    url(r'^test/list/$', TestView.as_view(queryset=Test.objects.all().order_by("-added_date")[:20], template_name = "tests/test_list.html")),
-    url(r'^mytests/list/$', MyTestView.as_view(queryset=Test.objects.all().order_by("-added_date")[:20], template_name = "tests/mytests_list.html")),
-    url(r'^tasks/list/$', TaskView.as_view(queryset=Task.objects.all().order_by("-added_date")[:20], template_name = "tasks/task_list.html")),
+    url(r'^mytests/list/$', views.mytests_list, name = "mytests_list"),
+    url(r'^tasks/list/$', TaskView.as_view(queryset=Task.objects.all(), template_name = "tasks/task_list.html")),
     url(r'^(?P<username>[\w.@+-]+)/$', views.index, name='index'), # why does it need to place last?
 ]   
