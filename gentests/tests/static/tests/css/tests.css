@@ -7,7 +7,9 @@ div {
 .divTopPanel div { 
     width: 80px;
     display:inline-block;
-    
+}
+.nav-link-username {
+    color: white;
 }
 .menu div { 
     width: 80px; 

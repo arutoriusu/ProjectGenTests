@@ -28,10 +28,11 @@
           <li class="nav-item">
             <a href="#" class="btn btn-primary btn-lg helpButton">Помощь </a>
           </li>
+          
       </ul>
       
       {% if user.is_authenticated or display_user %}
-        <div class="username"><a href="#" class="whiteClassA nav-link active"> {{ user.username }} {{ display_user }}</a></div>
+        <div class="username"><a href="#" class="whiteClassA nav-link nav-link-username"> {{ user.username }} {{ display_user }}</a></div>
         <div class="quit"><a href="{% url 'logout' %}" class="btn btn-primary btn-lg quit greyButton ">Выйти </a></div>
       {% else %}
         <div><a href="{% url 'login' %}" class="btn btn-primary btn-lg signin ">Войти </a></div>
@@ -161,6 +162,7 @@
               </div>
         </nav>
           </header>
+          
           {% block header %}
           {% endblock %}
           
