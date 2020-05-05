@@ -5,6 +5,7 @@ from captcha.fields import CaptchaField
 from django import forms
 from .models import Test, Variant, Task, Tag
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm 
 
 
 class TestForm(forms.ModelForm):
@@ -33,13 +34,11 @@ class TagForm(forms.ModelForm):
 
 
 class UserRegistrationForm(forms.ModelForm):
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Повтори пароль', widget=forms.PasswordInput)
     captcha = CaptchaField()
 
     class Meta:
         model = User
-        fields = ('username',)
+        fields = ('username','password',)
 
     def clean_password2(self):
         cd = self.cleaned_data

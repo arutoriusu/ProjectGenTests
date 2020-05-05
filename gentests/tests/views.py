@@ -54,7 +54,7 @@ def registration(request):
             new_user.set_password(user_form.cleaned_data['password'])
             # Save the User object
             new_user.save()
-			# в чем разница между этими двумя способами?
+            # в чем разница между этими двумя способами?
             #user = User.objects.create(username=new_user)
            
             return redirect('/accounts/login/')
