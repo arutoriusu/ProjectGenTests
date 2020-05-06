@@ -106,7 +106,10 @@ def tag_new(request, pk):
 def test_detail(request, pk):
 	test = get_object_or_404(Test, pk=pk)
 	variants = test.variants
-	return render(request, 'tests/test_detail.html', {'test': test, 'variants': variants})
+	allow_to_edit = False
+	if request.user.id == test.user.id:
+		allow_to_edit = True
+	return render(request, 'tests/test_detail.html', {'test': test, 'variants': variants,'allow_to_edit': allow_to_edit})
 
 def test_print(request, pk):
 	test = get_object_or_404(Test, pk=pk)
