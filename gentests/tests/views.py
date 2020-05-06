@@ -132,6 +132,10 @@ def task_new(request, pk, pk2):
 		form = TaskForm
 	return render(request, "tasks/task_new.html", {"form": form})
 
+def task_list(request, category):
+	tasks = Task.objects.filter(user=request.user).order_by("-added_date")
+	return render(request, "tasks/task_list.html", {"tasks": tasks})
+
 @login_required
 def variant_new(request, pk):
 	test = get_object_or_404(Test, pk=pk)
