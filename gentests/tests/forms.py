@@ -6,6 +6,10 @@ from django import forms
 from .models import Test, Variant, Task, Tag
 from django.contrib.auth.models import User 
 
+MATH_CHOICES= [
+    ('Арифметика', 'Арифметика'),
+    ('Алгебра', 'Алгебра'),
+    ]
 
 class TestForm(forms.ModelForm):
 
@@ -16,9 +20,11 @@ class TestForm(forms.ModelForm):
 
 class TaskForm(forms.ModelForm):
 
+    category = forms.CharField(widget=forms.Select(choices=MATH_CHOICES))
+
     class Meta:
         model = Task
-        fields = ['question', 'answer', ]
+        fields = ['question', 'answer', 'category',]
         widgets = {
             'question': SummernoteWidget(),
             'answer': SummernoteWidget(),
