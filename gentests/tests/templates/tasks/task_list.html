@@ -2,9 +2,9 @@
 
 {% block header %}
 <main class="col-md-9">
-  {% for task in object_list %}
+  {% for task in tasks %}
     <div class="post">
-        <div class="card" style="width: 35rem;">
+        <div class="card" style="width: 18rem; height: 23rem;">
             <div class="card-body">
               <h5 class="card-text">{{task.question|safe}}</h5>
               <a class="btn btn-primary btn-lg greyButton" href="#">Сохранить</a>

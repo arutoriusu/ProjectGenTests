@@ -32,7 +32,8 @@ class Test(models.Model):
     added_date = models.DateTimeField(default=timezone.now)
     count_of_variants = models.IntegerField(default=0)
     count_of_tasks = models.IntegerField(default=0)
-    category = models.CharField(max_length=50)
+    # still thinking to use categories or tags...
+    # category = models.CharField(max_length=50)
     likes = GenericRelation(Like)
 
     class Meta:
@@ -76,6 +77,7 @@ class Task(models.Model):
     tag = models.ManyToManyField(to=Tag, related_name='tasks')
     added_date = models.DateTimeField(default=timezone.now)
     likes = GenericRelation(Like)
+    category = models.CharField(max_length=50)
 
     class Meta:
         verbose_name = "task"
