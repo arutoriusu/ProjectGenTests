@@ -137,7 +137,6 @@ def task_new(request, pk, pk2):
 
 def task_list(request, category):
 	tasks = Task.objects.filter(category=category).order_by("-added_date")
-	print(tasks)
 	return render(request, "tasks/task_list.html", {"tasks": tasks})
 
 @login_required

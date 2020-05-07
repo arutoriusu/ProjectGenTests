@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_mathjax',
     'captcha',
     'django_summernote',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -160,3 +161,5 @@ SUMMERNOTE_CONFIG = {
 }
 
 SUMMERNOTE_THEME = 'bs4'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
