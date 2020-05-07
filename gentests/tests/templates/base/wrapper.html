@@ -56,12 +56,14 @@
                   <li class="nav-item active">
                   <a href="/test/list/" class="nav-link whiteClassA">Просмотр контрольных работ</a>
                   </li>
+                  {% if user.is_authenticated or display_user %}
                   <li class="nav-item">
                   <a href="/mytests/list/" class="nav-link whiteClassA">Мои контрольные работы</a>
                   </li>
                   <li class="nav-item">
                   <a href="" class="nav-link whiteClassA">Избранное</a>
                   </li>
+                  {% endif %}
                   <li class="nav-item">
                     <a href="" class="nav-link"></a>
                   </li>

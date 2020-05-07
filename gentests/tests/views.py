@@ -37,6 +37,8 @@ def test_list(request):
 	return render(request, 'tests/test_list.html', {"leftArray": leftArray, "rightArray": rightArray})
 
 def mytests_list(request):
+	if not request.user.id:
+		return index(request, username=None)
 	tests = Test.objects.filter(user=request.user).order_by("-added_date")
 	leftArray, rightArray = split_tests_on_arrays(tests)
 	return render(request, 'tests/mytests_list.html', {"leftArray": leftArray, "rightArray": rightArray})
