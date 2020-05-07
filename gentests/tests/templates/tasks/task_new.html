@@ -2,17 +2,20 @@
 {% load crispy_forms_tags %}
 
 {% block header %}
+<script type="text/javascript" src="http://latex.codecogs.com/editor3.js"></script>
 <main class="col-md-9">
     <h1>Новая задача</h1>
     <form method="POST" class="post-form" >{% csrf_token %}
-        <!-- {{ form.as_p }} -->
+        <p><a href="javascript:OpenLatexEditor('testbox','latex','ru-ru')">
+        Открыть редактор вопроса
+        </a></p>
+        {% comment %} <textarea id="testbox" rows="3" cols="40"></textarea> {% endcomment %}
         {{ form.question }}
+        <p><a href="javascript:OpenLatexEditor('testbox2','latex','ru-ru')">
+        Открыть редактор ответа
+        </a></p>
         {{ form.answer }}
         {{ form.category|as_crispy_field }}
-        {% comment %} <select class="custom-select">
-            <option selected>Выберите категорию</option>
-            <option value="1">Арифметика</option>
-        </select> {% endcomment %}
         <button type="submit" class="save btn btn-dark">Сохранить</button>
     </form> 
 </main>

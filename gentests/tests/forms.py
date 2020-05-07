@@ -39,16 +39,22 @@ class TestForm(forms.ModelForm):
 
 
 class TaskForm(forms.ModelForm):
-
+    question = forms.CharField(widget=forms.Textarea)
+    answer = forms.CharField(widget=forms.Textarea)
     category = forms.CharField(label='Выберите категорию для задачи', widget=forms.Select(choices=MATH_CHOICES))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['question'].widget.attrs.update(id='testbox')
+        self.fields['answer'].widget.attrs.update(id='testbox2')
 
     class Meta:
         model = Task
         fields = ['question', 'answer', 'category',]
-        widgets = {
-            'question': SummernoteWidget(),
-            'answer': SummernoteWidget(),
-        }
+        # widgets = {
+        #     'question': SummernoteWidget(),
+        #     'answer': SummernoteWidget(),
+        # }
 
 
 class TagForm(forms.ModelForm):
