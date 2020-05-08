@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'captcha',
     'django_summernote',
     'crispy_forms',
+    'django_forms_bootstrap',
 ]
 
 MIDDLEWARE = [

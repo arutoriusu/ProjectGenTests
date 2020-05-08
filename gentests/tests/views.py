@@ -9,12 +9,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views import View
 
 
-def index(request, username=None):
-    display_user = ""
-    if request.user.is_authenticated:
-        display_user = request.user
+def update_counts_of_tasks_and_variants():
     tests = Test.objects.all()
     for test in tests:
         test.count_of_variants = test.variants.count()
@@ -23,13 +22,33 @@ def index(request, username=None):
             count_of_tasks += variant.tasks.count()
         test.count_of_tasks = count_of_tasks
         test.save()
-    user = None
-    if username is not None:
-        user = get_object_or_404(User, username=username)
-        tests = tests.filter(user=user)
-    tests = tests.order_by("-added_date")
-    leftArray, rightArray = split_tests_on_arrays(tests)
-    return render(request, "base/main.html", {"leftArray": leftArray, "rightArray": rightArray, "user": user, "display_user": display_user})
+
+# TODO Добавить последние измененные пользователем
+class EIndexView(View):
+ 
+    def get(self, request):
+        update_counts_of_tasks_and_variants()
+        all_tests = Test.objects.all().order_by('-added_date')
+        # Создаём Paginator, в который передаём статьи и указываем, 
+        # что их будет 10 штук на одну страницу
+        current_page = Paginator(all_tests, 5)
+ 
+        # Pagination в django_bootstrap3 посылает запрос вот в таком виде:
+        # "GET /?page=2 HTTP/1.0" 200,
+        # Поэтому нужно забрать page и попытаться передать его в Paginator, 
+        # для нахождения страницы
+        page = request.GET.get('page')
+        try:
+            # Если существует, то выбираем эту страницу
+            paginator_tests = current_page.page(page)  
+        except PageNotAnInteger:
+            # Если None, то выбираем первую страницу
+            paginator_tests = current_page.page(1)  
+        except EmptyPage:
+            # Если вышли за последнюю страницу, то возвращаем последнюю
+            paginator_tests = current_page.page(current_page.num_pages) 
+ 
+        return render(request, 'base/main.html', {'tests': paginator_tests})
 
 def test_list(request):
 	tests = Test.objects.all().order_by('-added_date')

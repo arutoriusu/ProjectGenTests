@@ -9,8 +9,7 @@ from .views import SearchResultsView
 
 urlpatterns = [
     url(r'^registration/$', views.registration, name='registration'),
-    url(r'^$', views.index, name='index'),
-    url(r'^start/$', views.index, name='start'),
+    url(r'^$', views.EIndexView.as_view(), name='index'),
     url(r'^search/$', SearchResultsView.as_view(queryset=Task.objects.all().order_by("-added_date")), name='search_results'),
     url(r'^test/(?P<pk>\d+)/tag/new/$', views.tag_new, name='tag_new'),
     url(r'^test/new/$', views.test_new, name='test_new'),
@@ -28,5 +27,5 @@ urlpatterns = [
     url(r'^test/(?P<pk>\d+)/variant/(?P<pk2>\d+)/task/(?P<pk3>\d+)/delete/$', views.task_delete, name='task_delete'),
     url(r'^mytests/list/$', views.mytests_list, name = "mytests_list"),
     url(r'^tasks/(?P<category>[\w-]+)/$', views.task_list, name = "task_list"),
-    url(r'^(?P<username>[\w.@+-]+)/$', views.index, name='index'), # why does it need to place last?
+    #url(r'^(?P<username>[\w.@+-]+)/$', views.index, name='index'), # why does it need to place last?
 ]   
