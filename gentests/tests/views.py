@@ -23,6 +23,7 @@ def update_counts_of_tasks_and_variants():
         test.count_of_tasks = count_of_tasks
         test.save()
 
+
 # TODO Добавить последние измененные пользователем
 class EIndexView(View):
  
@@ -50,10 +51,12 @@ class EIndexView(View):
  
         return render(request, 'base/main.html', {'tests': paginator_tests})
 
+
 def test_list(request):
 	tests = Test.objects.all().order_by('-added_date')
 	leftArray, rightArray = split_tests_on_arrays(tests)
 	return render(request, 'tests/test_list.html', {"leftArray": leftArray, "rightArray": rightArray})
+
 
 def mytests_list(request):
 	if not request.user.id:
@@ -61,6 +64,7 @@ def mytests_list(request):
 	tests = Test.objects.filter(user=request.user).order_by("-added_date")
 	leftArray, rightArray = split_tests_on_arrays(tests)
 	return render(request, 'tests/mytests_list.html', {"leftArray": leftArray, "rightArray": rightArray})
+
 
 def split_tests_on_arrays(tests):
 	leftArray = []
@@ -72,8 +76,10 @@ def split_tests_on_arrays(tests):
 		leftArray.append(tests[i])
 	return leftArray, rightArray
 
+
 def start(request):
 	return render(request, "tests/start.html")
+
 
 class SearchResultsView(ListView):
 	model = Test
@@ -85,6 +91,7 @@ class SearchResultsView(ListView):
 			Q(theme_of_test__icontains=query)
 		)
 		return object_list
+
 
 def registration(request):
     if request.method == 'POST':
@@ -104,6 +111,7 @@ def registration(request):
         user_form = UserRegistrationForm()
     return render(request, 'registration/registration.html', {'user_form': user_form})
 
+
 @login_required
 def test_new(request):
 	display_user = ""
@@ -121,8 +129,10 @@ def test_new(request):
 		form = TestForm
 	return render(request, "tests/test_new.html", {"form": form})
 
+
 def tag_new(request, pk):
 	return render(request, "tags/tag_new.html")
+
 
 def test_detail(request, pk):
 	test = get_object_or_404(Test, pk=pk)
@@ -132,10 +142,12 @@ def test_detail(request, pk):
 		allow_to_edit = True
 	return render(request, 'tests/test_detail.html', {'test': test, 'variants': variants,'allow_to_edit': allow_to_edit})
 
+
 def test_print(request, pk):
 	test = get_object_or_404(Test, pk=pk)
 	variants = test.variants
 	return render(request, 'tests/test_print.html', {'test': test, 'variants': variants})
+
 
 @login_required
 def task_new(request, pk, pk2):
@@ -156,9 +168,11 @@ def task_new(request, pk, pk2):
 		form = TaskForm
 	return render(request, "tasks/task_new.html", {"form": form})
 
+
 def task_list(request, category):
 	tasks = Task.objects.filter(category=category).order_by("-added_date")
 	return render(request, "tasks/task_list.html", {"tasks": tasks})
+
 
 @login_required
 def variant_new(request, pk):
@@ -171,17 +185,20 @@ def variant_new(request, pk):
 	tasks = variant.tasks
 	return render(request, 'variants/variant_detail.html', {'test': test, 'variant': variant, 'tasks': tasks})
 
+
 def variant_detail(request, pk, pk2):
 	test = get_object_or_404(Test, pk=pk)
 	variant = get_object_or_404(Variant, pk=pk2)
 	tasks = variant.tasks
 	return render(request, 'variants/variant_detail.html', {'test': test, 'variant': variant, 'tasks': tasks})
 
+
 def variant_print(request, pk, pk2):
 	test = get_object_or_404(Test, pk=pk)
 	variant = get_object_or_404(Variant, pk=pk2)
 	tasks = variant.tasks
 	return render(request, 'variants/variant_print.html', {'test': test, 'variant': variant, 'tasks': tasks})
+
 
 @login_required
 def variant_delete(request, pk, pk2):
@@ -193,6 +210,7 @@ def variant_delete(request, pk, pk2):
 	variants = test.variants
 	return render(request, 'tests/test_detail.html', {'test': test, 'variants': variants})
 
+
 @login_required
 def test_delete(request, pk):
 	test = get_object_or_404(Test, pk=pk)
@@ -200,6 +218,7 @@ def test_delete(request, pk):
 		return redirect('/')
 	test.delete()
 	return redirect('/test/list/')
+
 
 @login_required
 def test_edit(request, pk):
@@ -219,6 +238,7 @@ def test_edit(request, pk):
         form = TestForm(instance=test)
     return render(request, 'tests/test_new.html', {'form': form})
 
+
 @login_required
 def task_delete(request, pk, pk2, pk3):
 	task = get_object_or_404(Task, pk=pk3)
@@ -226,6 +246,7 @@ def task_delete(request, pk, pk2, pk3):
 		return redirect('/')
 	task.delete()
 	return variant_detail(request, pk, pk2)
+
 
 @login_required
 def task_edit(request, pk, pk2, pk3):
