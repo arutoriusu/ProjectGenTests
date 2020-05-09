@@ -77,10 +77,6 @@ def split_tests_on_arrays(tests):
 	return leftArray, rightArray
 
 
-def start(request):
-	return render(request, "tests/start.html")
-
-
 class SearchResultsView(ListView):
 	model = Test
 	template_name = "base/search_results.html"
