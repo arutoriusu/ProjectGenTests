@@ -1,4 +1,5 @@
 {% extends 'base/wrapper.html' %}
+{% load crispy_forms_tags %}
 
 {% block header %}
 <main class="col-md-9">
@@ -7,15 +8,14 @@
     <form method="POST" action="{% url 'test_new' %}">
         {% csrf_token %}
             <table class="table">
-                
                 <tr>
-                    <td>Название контрольной работы</td>
-                    <td>{{ form.theme_of_test }}</td>
+                    <td>{{ form.theme_of_test|as_crispy_field }}</td>
                 </tr>
                 <tr>
-                    <td>
-                        
-                    </td>
+                    <td>{{ form.description|as_crispy_field }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.private|as_crispy_field }}</td>
                 </tr>
             </table>
     

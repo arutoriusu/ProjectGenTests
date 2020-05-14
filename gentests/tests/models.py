@@ -28,12 +28,12 @@ class Like(models.Model):
 
 class Test(models.Model):
     theme_of_test = models.CharField(max_length=30)
+    description = models.CharField(max_length=120, blank=True)
+    private = models.BooleanField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=get_default_user)
     added_date = models.DateTimeField(default=timezone.now)
     count_of_variants = models.IntegerField(default=0)
     count_of_tasks = models.IntegerField(default=0)
-    # still thinking to use categories or tags...
-    # category = models.CharField(max_length=50)
     likes = GenericRelation(Like)
 
     class Meta:

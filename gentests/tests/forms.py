@@ -32,10 +32,12 @@ MATH_CHOICES= [
     ]
 
 class TestForm(forms.ModelForm):
+    theme_of_test = forms.CharField(label=("Название"),)
+    description = forms.CharField(label=("Описание"),)
 
     class Meta:
         model = Test
-        fields = ['theme_of_test', ]
+        fields = ['theme_of_test', 'description', 'private', ]
 
 
 class TaskForm(forms.ModelForm):
@@ -50,7 +52,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['question', 'answer', 'category',]
+        fields = ['question', 'answer', 'category', ]
         # widgets = {
         #     'question': SummernoteWidget(),
         #     'answer': SummernoteWidget(),
@@ -65,7 +67,9 @@ class TagForm(forms.ModelForm):
 
 
 class UserRegistrationForm(forms.ModelForm):
-    captcha = CaptchaField()
+    captcha = CaptchaField(label=("Защита от робота"),)
+    password = forms.CharField(label=("Пароль"),
+        widget=forms.PasswordInput)
 
     class Meta:
         model = User
