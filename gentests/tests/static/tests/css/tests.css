@@ -82,9 +82,12 @@ A:hover {
     top: 25px;
     right: 130px;
 }
+.sizeOfAllButtons {
+    width: 160px;
+}
 .quit {
     position: absolute;
-    right: 20px;
+    right: 0px;
     top: 10px;
 }
 #e1_19 {

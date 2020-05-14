@@ -1,5 +1,6 @@
 {% extends 'base/wrapper.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block header %}
 <main class="col-md-9">
   {% if form.errors %}
@@ -35,15 +36,13 @@
     {% csrf_token %}
         <table>
         <tr>
-            <td>{{ user_form.username.label_tag }}</td>
-            <td>{{ user_form.username }}</td>
+            <td>{{ user_form.username|as_crispy_field  }}</td>
         </tr>
         <tr>
-            <td>{{ user_form.password.label_tag }}</td>
-            <td>{{ user_form.password }}</td>
+            <td>{{ user_form.password|as_crispy_field  }}</td>
         </tr>
         <tr>
-            <td>{{ user_form.captcha  }}</td>
+            <td>{{ user_form.captcha|as_crispy_field  }}</td>
         </tr>
         <tr>
             <td>{{ user_form.captcha.errors }}</td>
