@@ -9,13 +9,12 @@
         <div class="date">
             Добавлено {{ test.added_date }}
         </div>
-        <a class="btn btn-primary " href="{% url 'test_print' pk=test.pk %}">Распечатать контрольную</a>
+        <a class="btn btn-primary greyButton" href="{% url 'test_print' pk=test.pk %}">Распечатать</a>
         {% if allow_to_edit == True %}
-            <a class="btn btn-primary " href="{% url 'tag_new' pk=test.pk %}">Сделать всё за меня!</a>
-            <a class="btn btn-primary " href="{% url 'test_edit' pk=test.pk %}">Переименовать контрольную</a>
-            <a class="btn btn-primary " href="{% url 'test_delete' pk=test.pk %}">Удалить контрольную</a>
-            <a class="btn btn-primary " href="{% url 'variant_new' pk=test.pk %}">Добавить вариант</a>
-            <a class="btn btn-primary " href="{% url 'tag_new' pk=test.pk %}">Добавить тэг</a>
+            <a class="btn btn-primary greyButton" href="{% url 'tag_new' pk=test.pk %}">Сгенерировать автоматически</a>
+            <a class="btn btn-primary greyButton" href="{% url 'test_edit' pk=test.pk %}">Переименовать</a>
+            <a class="btn btn-primary greyButton" href="{% url 'test_delete' pk=test.pk %}">Удалить</a>
+            <a class="btn btn-primary greyButton" href="{% url 'variant_new' pk=test.pk %}">Добавить вариант</a>
         {% endif %}
         
     </div>
@@ -25,8 +24,8 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">{{variant.number_of_variant}} вариант</h5>
-              <a href="{% url 'variant_detail' pk=test.pk pk2=variant.pk %}" class="btn btn-primary">Перейти</a>
-              <a class="btn btn-primary" href="{% url 'variant_delete' pk=test.pk pk2=variant.pk %}">Удалить</a>
+              <a class="btn btn-primary greyButton" href="{% url 'variant_detail' pk=test.pk pk2=variant.pk %}">Перейти</a>
+              <a class="btn btn-primary greyButton" href="{% url 'variant_delete' pk=test.pk pk2=variant.pk %}">Удалить</a>
             </div>
           </div>
     </div>

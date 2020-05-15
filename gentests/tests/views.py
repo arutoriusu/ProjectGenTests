@@ -53,15 +53,33 @@ class EIndexView(View):
 
 
 def test_list(request):
-	tests = Test.objects.all().order_by('-added_date')
-	return render(request, 'tests/test_list.html', {"tests": tests})
+    update_counts_of_tasks_and_variants()
+    all_tests = Test.objects.all().order_by('-added_date')
+    current_page = Paginator(all_tests, 5)
+    page = request.GET.get('page')
+    try:
+        paginator_tests = current_page.page(page)  
+    except PageNotAnInteger:
+        paginator_tests = current_page.page(1)  
+    except EmptyPage:
+        paginator_tests = current_page.page(current_page.num_pages)
+    return render(request, 'tests/test_list.html', {"tests": paginator_tests})
 
 
 def mytests_list(request):
-	if not request.user.id:
-		return index(request, username=None)
-	tests = Test.objects.filter(user=request.user).order_by("-added_date")
-	return render(request, 'tests/mytests_list.html', {"tests": tests})
+    if not request.user.id:
+        return index(request, username=None)
+    update_counts_of_tasks_and_variants()
+    all_tests = Test.objects.filter(user=request.user).order_by("-added_date")
+    current_page = Paginator(all_tests, 5)
+    page = request.GET.get('page')
+    try:
+        paginator_tests = current_page.page(page)  
+    except PageNotAnInteger:
+        paginator_tests = current_page.page(1)  
+    except EmptyPage:
+        paginator_tests = current_page.page(current_page.num_pages)
+    return render(request, 'tests/mytests_list.html', {"tests": paginator_tests})
 
 
 def split_tests_on_arrays(tests):

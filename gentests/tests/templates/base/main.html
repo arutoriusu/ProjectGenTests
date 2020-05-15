@@ -47,7 +47,7 @@
       </table>
       {% endif %}
 
-      
+      {% if user.is_authenticated or display_user %}
       {% if tests.has_other_pages %}
         <ul class="pagination">
         {% if tests.has_previous %}
@@ -73,11 +73,12 @@
         {% endif %}
         </ul>
       {% endif %}
+      {% endif %}
         
     </main>
 
 {% endblock %}
 
 {% block content %}
-
+<button onclick="window.scroll(0,0);">Наверх</button>
 {% endblock %}

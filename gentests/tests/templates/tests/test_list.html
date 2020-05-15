@@ -30,6 +30,32 @@
           </td>
         </tr>
       </table>
+
+      {% if tests.has_other_pages %}
+        <ul class="pagination">
+        {% if tests.has_previous %}
+        <li class="page-item disabled">
+          <span class="page-link"><a href="?page={{ tests.previous_page_number }}">Previous</a></span>
+        </li>
+        {% else %}
+          <li class="disabled"><span>Пред</span></li>
+        {% endif %}
+        {% for i in tests.paginator.page_range %}
+          {% if tests.number == i %}
+            <li class="page-link"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if users.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ tests.next_page_number }}">Вперд</a>
+        </li>
+        {% else %}
+          <li class="disabled"><span>Вперд</span></li>
+        {% endif %}
+        </ul>
+      {% endif %}
   </main>
   <button onclick="window.scroll(0,0);">Наверх</button>
 {% endblock %}

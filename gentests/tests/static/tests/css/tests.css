@@ -22,6 +22,7 @@ div {
 A.whiteClassA:visited {text-decoration: none; color: rgb(255, 255, 255);}
 A.whiteClassA:active {text-decoration: none; color: rgb(255, 255, 255);}
 A.whiteClassA:hover {text-decoration: underline; color: rgb(255, 255, 255);}
+A.whiteClassA:link { color: rgb(255, 255, 255);}
 A {
     color: #000000; /* Цвет обычной ссылки */
 }
@@ -77,6 +78,7 @@ A:hover {
 .greyButton{
     background-color: rgb(190, 190, 190);
 }
+A.greyButton:link { color: black;}
 .username {
     position: absolute;
     top: 25px;
