@@ -33,7 +33,7 @@ MATH_CHOICES= [
 
 class TestForm(forms.ModelForm):
     theme_of_test = forms.CharField(label=("Название"),)
-    description = forms.CharField(label=("Описание"),)
+    description = forms.CharField(label=("Описание"), required=False)
 
     class Meta:
         model = Test

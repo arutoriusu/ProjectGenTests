@@ -14,6 +14,7 @@
                 <div class="card" style="width: 18rem; height: 23rem;">
                     <div class="card-body">
                       <h3 class="card-title">{{test.theme_of_test}}</h3>
+                      <h4 class="card-text">{{test.description}}</h4>
                       <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
                       <link>
                       <a class="btn btn-primary greyButton blackOnGrey sizeOfAllButtons" href="{% url 'test_detail' pk=test.pk %}" >Перейти</a>

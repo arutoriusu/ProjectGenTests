@@ -15,7 +15,10 @@
                     <td>{{ form.description|as_crispy_field }}</td>
                 </tr>
                 <tr>
-                    <td>{{ form.private|as_crispy_field }}</td>
+                    <td>Видно только мне {{ form.private }}</td>
+                </tr>
+                <tr>
+                    <td>* Обязательное поле</td>
                 </tr>
             </table>
     
