@@ -47,12 +47,15 @@
         <tr>
             <td>{{ user_form.captcha.errors }}</td>
         </tr>
+        <tr>
+            <td>* Обязательное поле</td>
+        </tr>
         </table>
-        <button class='captcha-refresh'>
+        <button class='captcha-refresh btn btn-secondary'>
             <img src="{% static 'tests/img/reload.png' %} " width="20" height="20">
         </button>
 
-        <input type="submit" value="Зарегистрироваться" />
+        <input class="save btn btn-dark" type="submit" value="Зарегистрироваться" />
         <input type="hidden" name="next" value="{{ next }}" />
     </form>
 </main>
