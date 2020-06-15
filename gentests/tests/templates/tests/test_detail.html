@@ -2,10 +2,10 @@
 
 {% block header %}
 <main class="col-md-9">
-    <h3>Мои контрольные</h3>
     <div class="post">
-        
-        <h1>{{ test.theme_of_test }}</h1>
+        <h6>Автор: {{ user.username }} | {{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h6>
+        <h2>{{ test.theme_of_test }}</h2>
+        <h5>{{ test.description }}</h5>
         <div class="date">
             Добавлено {{ test.added_date }}
         </div>
