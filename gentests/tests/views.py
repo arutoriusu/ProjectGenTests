@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TestForm, TaskForm, TagForm, UserRegistrationForm
-from .models import Test, Task, Variant
+from .models import Test, Task, Variant, Like
 from django.utils import timezone
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -11,6 +11,9 @@ from django.views.generic import ListView
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import View
+from .services import add_like, is_fan
+import json
+from django.contrib.contenttypes.models import ContentType
 
 
 def update_counts_of_tasks_and_variants():
@@ -48,8 +51,21 @@ class EIndexView(View):
         except EmptyPage:
             # Если вышли за последнюю страницу, то возвращаем последнюю
             paginator_tests = current_page.page(current_page.num_pages) 
- 
-        return render(request, 'base/main.html', {'tests': paginator_tests})
+
+        liked_tests = create_dictionary_of_likes(request.user)
+        return render(request, 'base/main.html', {'tests': paginator_tests, 'liked_tests': liked_tests})
+
+
+def create_dictionary_of_likes(user):
+    if user.is_authenticated:
+        liked_tests = {}
+        tests = Test.objects.all()
+        for test in tests:
+            obj_type = ContentType.objects.get_for_model(test)
+            likes = Like.objects.filter(content_type=obj_type, object_id=test.id, user=user)
+            liked_tests[test.pk] = likes.exists()
+        return liked_tests
+    return False
 
 
 def test_list(request):
@@ -278,3 +294,23 @@ def task_edit(request, pk, pk2, pk3):
     else:
         form = TaskForm(instance=task)
     return render(request, 'tasks/task_new.html', {'form': form})
+
+#TODO: refactor liking
+@login_required
+def like(request):
+    pk = request.POST.get('pk', None)
+    user = request.user
+    test = get_object_or_404(Test, pk=pk)
+    if test.likes.filter(id=user.id).exists():
+        # user has already liked this company
+        # remove like/user
+        # test.likes.remove(user)
+        message = 'You disliked this'
+    else:
+        # add a new like for a company
+        # test.likes.add(user)
+        message = 'You liked this'
+        add_like(test, request.user)
+    ctx = {'likes_count': test.total_likes, 'message': message}
+    # use mimetype instead of content_type if django < 5
+    return HttpResponse(json.dumps(ctx), content_type='application/json')

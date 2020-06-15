@@ -1,4 +1,35 @@
 {% extends 'base/wrapper.html' %}
+{% load tests_filters %}
+{% block javascript %}
+<script>
+ $(document).on('click','#like',function (e) {
+      $.ajax({
+               type: "POST",
+               url: "{% url 'like' %}",
+               data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'pk': $(this).attr('name')},
+               dataType: "json",
+               success: function(response) {
+                      //alert(response.message);
+                      //alert('Company likes count is now ' + response.likes_count);
+                },
+                error: function(rs, e) {
+                       //alert(rs.responseText);
+                }
+          }); 
+    })
+
+var getLikeButton = document.getElementsByClassName('like_button');
+
+for (var i = 0; i < getLikeButton.length; i++) {
+   getLikeButton.item(i).addEventListener('click', (e) => {
+     //e.target.style.display = 'none';
+     //e.target.textContent="Вы сохранили это";
+     e.target.src = "static/tests/img/heart-fill.svg";
+   });
+}
+
+</script>
+{% endblock %}
 
 {% block header %}
     <main class="col-md-9">
@@ -33,7 +64,15 @@
                 <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
                 <h5 class="card-subtitle mb-2 text-muted">Автор: {{test.user}}</h5>
                 <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Перейти</a>
-                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Сохранить</a>
+                {% if not liked_tests|get_value_from_dict:test.pk %}
+                <a id="like" name='{{ test.pk }}' class="btn btn-primary greyButton like_button">
+                  <img src="static\tests\img\heart.svg" alt="" width="24" height="24" title="Bootstrap">
+                </a>
+                {% else %}
+                <a id="dislike_default" name='{{ test.pk }}' class="btn btn-primary greyButton">
+                  <img src="static\tests\img\heart-fill.svg" alt="" width="24" height="24" title="Bootstrap">
+                </a>
+                {% endif %}
                 <div class="date">
                   {{test.added_date|date:" Добавлено d.m.y в H:i"}}
                 </div>
