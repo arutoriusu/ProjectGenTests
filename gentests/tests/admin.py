@@ -3,7 +3,7 @@
 from django_summernote.admin import SummernoteModelAdmin
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Test, Variant, Task, Tag
+from .models import Test, Variant, Task, Tag, Like
 
 
 
@@ -20,3 +20,4 @@ admin.site.register(Test)
 admin.site.register(Variant)
 admin.site.register(Tag)
 admin.site.register(Task, TaskAdmin)
+admin.site.register(Like)
