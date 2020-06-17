@@ -4,12 +4,16 @@
 <main class="col-md-9">
   <h1>Результаты поиска</h1>
   <ul>
+  {% if user.is_authenticated or display_user %}
     {% for test in object_list %}
       <li>
         <a href="{% url 'test_detail' pk=test.pk %}">{{ test.theme_of_test }}</a>
         
       </li>
     {% endfor %}
+    {% else %}
+    <h1>Вам необходимо войти</h1>
+    {% endif %}
   </ul>
 </main>
 {% endblock %}

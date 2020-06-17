@@ -7,6 +7,7 @@
   <table>
         <tr>
           <td>
+          {% if user.is_authenticated or display_user %}
           {% for test in tests %}
           {% if test.private == False %}
           <div class="post">
@@ -15,7 +16,7 @@
                 <h3 class="card-title">{{test.theme_of_test}}</h5>
                 <h4 class="card-text">{{test.description}}</h4>
                 <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
-                <h5 class="card-subtitle mb-2 text-muted">{{test.user}}</h5>
+                <h5 class="card-subtitle mb-2 text-muted">Автор: {{test.user}}</h5>
 
                 <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Перейти</a>
                 <a hreg="#" class="btn btn-primary greyButton">Сохранить</a>
@@ -27,6 +28,9 @@
           </div>
         {% endif %}
         {% endfor %}
+        {% else %}
+        <h1>Вам необходимо войти</h1>
+        {% endif %}
           </td>
         </tr>
       </table>
