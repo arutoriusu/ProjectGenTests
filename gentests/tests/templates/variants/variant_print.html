@@ -6,6 +6,16 @@
         $("#sortable").sortable();
         $("#sortable").disableSelection();
         });
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
     </script>
     
         <h3>Мои контрольные</h3>
@@ -17,9 +27,8 @@
             </div>
         </div>
         <h1>Вариант {{ variant.number_of_variant }}</h1>
-        <a class="btn btn-primary btn-lg" href="{% url 'variant_print' pk=test.pk pk2=variant.pk %}">Печатать</a>
-        <a class="btn btn-primary btn-lg" href="{% url 'task_new' pk=test.pk pk2=variant.pk %}">Добавить задачу</a>
-        
+        <a class="btn btn-primary btn-lg" onClick="printDiv('printableArea')">Печатать вопросы</a>
+        <a class="btn btn-primary btn-lg" onClick="printDiv('printableArea2')">Печатать ответы</a>  
         
     
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -33,6 +42,7 @@
                                 <h5>Задачи</h5>
                             </div>
                             <div class="card-block">
+                            <div id="printableArea">
                                 <div id="sortable">
                                     
                                         {% for task in tasks.all %}
@@ -42,7 +52,6 @@
                                                     <div class="card-body">
                                                     <!-- <h4 class="card-title">Задача</h4> -->
                                                     <div class="card-block">
-                                                        <h5 class="card-text">Ответ: {{ task.answer }}</h5>
                                                         <h5 class="card-text">{{ task.question|safe }}</h5>
                                                     </div>
                                                     
@@ -54,7 +63,13 @@
                                         {% endfor %}
                                 </div>
     
-                                
+                            </div>  
+                            </div>
+                            <div id="printableArea2">
+                                {% for task in tasks.all %}
+                                    <h5 class="card-text">Ответ: {{ task.answer|safe }}</h5>
+                                {% endfor %}
+                            
                             </div>
                         </div> <!-- Draggable default card start -->
     
