@@ -33,26 +33,19 @@
                                 <h5>Задачи</h5>
                             </div>
                             <div class="card-block">
-    
-    
                                 <div id="sortable">
                                     
                                         {% for task in tasks.all %}
                                         <div class="col-lg-12 col-xl-3">
                                             <div class="post">
-                                                <div class="card" style="width: 35rem;">
+                                                <div class="card" style="width: 27rem;">
                                                     <div class="card-body">
                                                     <!-- <h4 class="card-title">Задача</h4> -->
                                                     <div class="card-block">
-                                                        <h5 class="card-text">{{ task.question }}</h5>
                                                         <h5 class="card-text">Ответ: {{ task.answer }}</h5>
+                                                        <h5 class="card-text">{{ task.question|safe }}</h5>
                                                     </div>
                                                     
-                                                    <a class="btn btn-primary btn-lg" href="{% url 'task_edit' pk=test.pk pk2=variant.pk pk3=task.pk %}">Изменить</a>
-                                                    <a class="btn btn-primary btn-lg" href="{% url 'task_delete' pk=test.pk pk2=variant.pk pk3=task.pk %}">Удалить</a>
-                                                    <div class="date">
-                                                        <h5>{{task.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
-                                                    </div> 
                                                     
                                                     </div>
                                                 </div>
