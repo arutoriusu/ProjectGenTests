@@ -11,9 +11,9 @@
         </div>
     </div>
     <h1>Вариант {{ variant.number_of_variant }}</h1>
-    <a class="btn btn-primary btn-lg" href="{% url 'variant_delete' pk=test.pk pk2=variant.pk %}">Удалить вариант</a>
-    <a class="btn btn-primary btn-lg" href="{% url 'variant_print' pk=test.pk pk2=variant.pk %}">Распечатать вариант</a>
-    <a class="btn btn-primary btn-lg" href="{% url 'task_new' pk=test.pk pk2=variant.pk %}">Добавить задачу</a>
+    <a class="btn btn-primary greyButton" href="{% url 'variant_delete' pk=test.pk pk2=variant.pk %}">Удалить вариант</a>
+    <a class="btn btn-primary greyButton" href="{% url 'variant_print' pk=test.pk pk2=variant.pk %}">Распечатать вариант</a>
+    <a class="btn btn-primary greyButton" href="{% url 'task_new' pk=test.pk pk2=variant.pk %}">Добавить задачу</a>
     
     
 
@@ -42,8 +42,8 @@
                                                 <h5 class="card-text">Ответ: {{ task.answer|safe }}</h5>
                                             </div>
                                             
-                                            <a class="btn btn-primary btn-lg" href="{% url 'task_edit' pk=test.pk pk2=variant.pk pk3=task.pk %}">Изменить</a>
-                                            <a class="btn btn-primary btn-lg" href="{% url 'task_delete' pk=test.pk pk2=variant.pk pk3=task.pk %}">Удалить</a>
+                                            <a class="btn btn-primary greyButton" href="{% url 'task_edit' pk=test.pk pk2=variant.pk pk3=task.pk %}">Изменить</a>
+                                            <a class="btn btn-primary greyButton" href="{% url 'task_delete' pk=test.pk pk2=variant.pk pk3=task.pk %}">Удалить</a>
                                             <div class="date">
                                                 <h5>{{task.added_date|date:" Добавлено d.m.y в h:m"}}</h5>
                                             </div> 
