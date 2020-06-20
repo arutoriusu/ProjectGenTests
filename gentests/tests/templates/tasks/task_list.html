@@ -9,7 +9,7 @@
               <h5 class="card-text">{{task.question|safe|truncatewords:10}}</h5>
               <a href="#" class="btn btn-primary greyButton">Сохранить</a>
               <div class="date">
-                <h5>{{task.added_date|date:" Добавлено d.m.y в H:i"}}</h5>
+                {{task.added_date|date:" Добавлено d.m.y в H:i"}}
               </div>
             </div>
           </div>
