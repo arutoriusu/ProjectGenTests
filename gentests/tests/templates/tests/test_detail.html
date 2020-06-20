@@ -24,7 +24,7 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h4 class="card-title">{{variant.number_of_variant}} вариант</h4>
-              <h6>{{test.count_of_tasks}} задач</h6>
+              <h6>{{variant.count_of_tasks}} задач</h6>
               <a class="btn btn-primary greyButton" href="{% url 'variant_detail' pk=test.pk pk2=variant.pk %}">Перейти</a>
               {% if test.user.pk == user.pk %}
                 <a class="btn btn-primary greyButton" href="{% url 'variant_delete' pk=test.pk pk2=variant.pk %}">Удалить</a>
