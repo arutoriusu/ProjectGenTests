@@ -69,8 +69,8 @@ class Tag(models.Model):
 
 
 class Task(models.Model):
-    question = models.CharField(max_length=200)
-    answer = models.CharField(max_length=200)
+    question = models.CharField(max_length=500)
+    answer = models.CharField(max_length=500)
     img = models.ImageField(blank=True, null=True)
     variant = models.ForeignKey(Variant, on_delete=models.CASCADE, related_name='tasks', default=1)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks', default=1)
