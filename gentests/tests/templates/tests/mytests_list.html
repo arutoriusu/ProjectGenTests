@@ -6,30 +6,52 @@
   {% if user.is_authenticated %}
     <a href="{% url 'test_new' %}" class="btn btn-primary btn-lg greyButton">Создать контрольную работу</a>
   {% endif %}
-  <table>
-        <tr>
-          <td>
-          {% for test in tests %}
+  {% if user.is_authenticated or display_user %}
+        <h2>Последние добавленные контрольные работы</h2>
+        <table>
+            {% for test, test2 in tests %}
+            <tr>
+            {% if test is not None %}
+            <td>
             <div class="post">
-                <div class="card" style="width: 18rem; height: 23rem;">
-                    <div class="card-body">
-                      <h3 class="card-title">{{test.theme_of_test}}</h3>
-                      <h4 class="card-text">{{test.description}}</h4>
-                      <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
-                      <link>
-                      <a class="btn btn-primary greyButton blackOnGrey sizeOfAllButtons" href="{% url 'test_detail' pk=test.pk %}" >Перейти</a>
-                      <a class="btn btn-primary greyButton blackOnGrey sizeOfAllButtons" href="{% url 'test_edit' pk=test.pk %}">Редактировать</a>
-                      <a class="btn btn-primary greyButton blackOnGrey sizeOfAllButtons" href="{% url 'test_delete' pk=test.pk %}">Удалить</a>
-                      <div class="date">
-                        {{test.added_date|date:" Добавлено d.m.y в H:i"}}
-                      </div>
-                    </div>
+              <div class="card" style="width: 18rem; height: 23rem;">
+                <div class="card-body">
+                  <h3 class="card-title">{{test.theme_of_test}}</h3>
+                  <h4 class="card-text">{{test.description}}</h4>
+                  <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
+                  <a class="btn btn-primary greyButton blackOnGrey sizeOfAllButtons" href="{% url 'test_detail' pk=test.pk %}" >Перейти</a>
+                  <a class="btn btn-primary greyButton blackOnGrey sizeOfAllButtons" href="{% url 'test_edit' pk=test.pk %}">Редактировать</a>
+                  <a class="btn btn-primary greyButton blackOnGrey sizeOfAllButtons" href="{% url 'test_delete' pk=test.pk %}">Удалить</a
+                  <div class="date">
+                    {{test.added_date|date:" Добавлено d.m.y в H:i"}}
                   </div>
+                </div>
+              </div>
+              </td>
+              {% endif %}
+              {% if test2 is not None %}
+              <td>
+              <div class="card" style="width: 18rem; height: 23rem;">
+                <div class="card-body">
+                  <h3 class="card-title">{{test2.theme_of_test}}</h3>
+                  <h4 class="card-text">{{test2.description}}</h4>
+                  <h5 class="card-title">{{test2.count_of_variants}} вариантов, {{test2.count_of_tasks}} задач</h5>
+                  <h5 class="card-subtitle mb-2 text-muted">Автор: {{test2.user}}</h5>
+                  <a class="btn btn-primary greyButton blackOnGrey sizeOfAllButtons" href="{% url 'test_detail' pk=test2.pk %}" >Перейти</a>
+                  <a class="btn btn-primary greyButton blackOnGrey sizeOfAllButtons" href="{% url 'test_edit' pk=test2.pk %}">Редактировать</a>
+                  <a class="btn btn-primary greyButton blackOnGrey sizeOfAllButtons" href="{% url 'test_delete' pk=test2.pk %}">Удалить</a
+                  <div class="date">
+                    {{test2.added_date|date:" Добавлено d.m.y в H:i"}}
+                  </div>
+                </div>
+              </div>
             </div>
+            </td>
+            {% endif %}
+          </tr>
           {% endfor %}
-          </td>
-        </tr>
-  </table>
+        </table>
+      {% endif %}
 
     {% if tests.has_other_pages %}
       <ul class="pagination">

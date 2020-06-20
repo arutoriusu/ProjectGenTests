@@ -1,39 +1,100 @@
 {% extends 'base/wrapper.html' %}
+{% load tests_filters %}
+{% block javascript %}
+<script>
+ $(document).on('click','#like',function (e) {
+      $.ajax({
+               type: "POST",
+               url: "{% url 'like' %}",
+               data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'pk': $(this).attr('name')},
+               dataType: "json",
+               success: function(response) {
+                      //alert(response.message);
+                      //alert('Company likes count is now ' + response.likes_count);
+                },
+                error: function(rs, e) {
+                       //alert(rs.responseText);
+                }
+          }); 
+    })
+
+var getLikeButton = document.getElementsByClassName('like_button');
+
+for (var i = 0; i < getLikeButton.length; i++) {
+   getLikeButton.item(i).addEventListener('click', (e) => {
+     //e.target.style.display = 'none';
+     //e.target.textContent="Вы сохранили это";
+     e.target.src = "../../static/tests/img/heart-fill.svg";
+   });
+}
+
+</script>
+{% endblock %}
 
 {% block header %}
   <main class="col-md-9">
-    <h3>Популярные контрольные работы</h3>
-    <h3>Последние добавленные контрольные работы</h3>
-  <table>
-        <tr>
-          <td>
-          {% if user.is_authenticated or display_user %}
-          {% for test in tests %}
-          {% if test.private == False %}
-          <div class="post">
-            <div class="card" style="width: 18rem; height: 23rem;">
-              <div class="card-body">
-                <h3 class="card-title">{{test.theme_of_test}}</h5>
-                <h4 class="card-text">{{test.description}}</h4>
-                <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
-                <h5 class="card-subtitle mb-2 text-muted">Автор: {{test.user}}</h5>
-
-                <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Перейти</a>
-                <a hreg="#" class="btn btn-primary greyButton">Сохранить</a>
-                <div class="date">
-                  {{test.added_date|date:" Добавлено d.m.y в H:i"}}
+    <h2>Популярные контрольные работы</h2>
+    {% if user.is_authenticated or display_user %}
+        <h2>Последние добавленные контрольные работы</h2>
+        <table>
+            {% for test, test2 in tests %}
+            <tr>
+            {% if test is not None %}
+            <td>
+            <div class="post">
+              <div class="card" style="width: 18rem; height: 23rem;">
+                <div class="card-body">
+                  <h3 class="card-title">{{test.theme_of_test}}</h3>
+                  <h4 class="card-text">{{test.description}}</h4>
+                  <h5 class="card-title">{{test.count_of_variants}} вариантов, {{test.count_of_tasks}} задач</h5>
+                  <h5 class="card-subtitle mb-2 text-muted">Автор: {{test.user}}</h5>
+                  <a href="{% url 'test_detail' pk=test.pk %}" class="btn btn-primary greyButton">Перейти</a>
+                  {% if not liked_tests|get_value_from_dict:test.pk %}
+                  <a id="like" name='{{ test.pk }}' class="btn btn-primary greyButton like_button">
+                    <img src="../../static/tests/img/heart.svg" alt="" width="24" height="24" title="Bootstrap">
+                  </a>
+                  {% else %}
+                  <a id="dislike_default" name='{{ test.pk }}' class="btn btn-primary greyButton">
+                    <img src="../../static/tests/img/heart-fill.svg" alt="" width="24" height="24" title="Bootstrap">
+                  </a>
+                  {% endif %}
+                  <div class="date">
+                    {{test.added_date|date:" Добавлено d.m.y в H:i"}}
+                  </div>
+                </div>
+              </div>
+              </td>
+              {% endif %}
+              {% if test2 is not None %}
+              <td>
+              <div class="card" style="width: 18rem; height: 23rem;">
+                <div class="card-body">
+                  <h3 class="card-title">{{test2.theme_of_test}}</h3>
+                  <h4 class="card-text">{{test2.description}}</h4>
+                  <h5 class="card-title">{{test2.count_of_variants}} вариантов, {{test2.count_of_tasks}} задач</h5>
+                  <h5 class="card-subtitle mb-2 text-muted">Автор: {{test2.user}}</h5>
+                  <a href="{% url 'test_detail' pk=test2.pk %}" class="btn btn-primary greyButton">Перейти</a>
+                  {% if not liked_tests|get_value_from_dict:test2.pk %}
+                  <a id="like" name='{{ test2.pk }}' class="btn btn-primary greyButton like_button">
+                    <img src="../../static/tests/img/heart.svg" alt="" width="24" height="24" title="Bootstrap">
+                  </a>
+                  {% else %}
+                  <a id="dislike_default" name='{{ test2.pk }}' class="btn btn-primary greyButton">
+                    <img src="../../static/tests/img/heart-fill.svg" alt="" width="24" height="24" title="Bootstrap">
+                  </a>
+                  {% endif %}
+                  <div class="date">
+                    {{test2.added_date|date:" Добавлено d.m.y в H:i"}}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        {% endif %}
-        {% endfor %}
-        {% else %}
-        <h1>Вам необходимо войти</h1>
-        {% endif %}
-          </td>
-        </tr>
-      </table>
+            </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </table>
+      {% endif %}
 
       {% if tests.has_other_pages %}
         <ul class="pagination">

@@ -52,10 +52,10 @@ for (var i = 0; i < getLikeButton.length; i++) {
       {% if user.is_authenticated or display_user %}
       <h2>Последние добавленные контрольные работы</h2>
       <table>
-        <tr>
-          <td>
-          {% for test in tests %}
+          {% for test, test2 in tests %}
+          <tr>
           {% if test.private == False %}
+          <td>
           <div class="post">
             <div class="card" style="width: 18rem; height: 23rem;">
               <div class="card-body">
@@ -78,11 +78,36 @@ for (var i = 0; i < getLikeButton.length; i++) {
                 </div>
               </div>
             </div>
+            </td>
+            {% endif %}
+            {% if test2.private == False %}
+            <td>
+            <div class="card" style="width: 18rem; height: 23rem;">
+              <div class="card-body">
+                <h3 class="card-title">{{test2.theme_of_test}}</h3>
+                <h4 class="card-text">{{test2.description}}</h4>
+                <h5 class="card-title">{{test2.count_of_variants}} вариантов, {{test2.count_of_tasks}} задач</h5>
+                <h5 class="card-subtitle mb-2 text-muted">Автор: {{test2.user}}</h5>
+                <a href="{% url 'test_detail' pk=test2.pk %}" class="btn btn-primary greyButton">Перейти</a>
+                {% if not liked_tests|get_value_from_dict:test2.pk %}
+                <a id="like" name='{{ test2.pk }}' class="btn btn-primary greyButton like_button">
+                  <img src="static\tests\img\heart.svg" alt="" width="24" height="24" title="Bootstrap">
+                </a>
+                {% else %}
+                <a id="dislike_default" name='{{ test2.pk }}' class="btn btn-primary greyButton">
+                  <img src="static\tests\img\heart-fill.svg" alt="" width="24" height="24" title="Bootstrap">
+                </a>
+                {% endif %}
+                <div class="date">
+                  {{test2.added_date|date:" Добавлено d.m.y в H:i"}}
+                </div>
+              </div>
+            </div>
           </div>
-        {% endif %}
-        {% endfor %}
           </td>
+        {% endif %}
         </tr>
+        {% endfor %}
       </table>
       {% endif %}
 
