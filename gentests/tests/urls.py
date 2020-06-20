@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^test/(?P<pk>\d+)/variant/(?P<pk2>\d+)/task/(?P<pk3>\d+)/edit/$', views.task_edit, name='task_edit'),
     url(r'^test/(?P<pk>\d+)/variant/(?P<pk2>\d+)/task/(?P<pk3>\d+)/delete/$', views.task_delete, name='task_delete'),
     url(r'^mytests/list/$', views.mytests_list, name = "mytests_list"),
+    url(r'^saved/$', views.saved, name = "saved"),
     url(r'^tasks/(?P<category>[\w-]+)/$', views.task_list, name = "task_list"),
     #url(r'^(?P<username>[\w.@+-]+)/$', views.index, name='index'), # why does it need to place last?
 ]   

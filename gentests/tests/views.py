@@ -22,9 +22,23 @@ def update_counts_of_tasks_and_variants():
         test.count_of_variants = test.variants.count()
         count_of_tasks = 0
         for variant in test.variants.all():
-            count_of_tasks += variant.tasks.count()
+            variant_count_of_tasks = variant.tasks.count()
+            variant.count_of_tasks = variant_count_of_tasks
+            variant.save()
+            count_of_tasks += variant_count_of_tasks
         test.count_of_tasks = count_of_tasks
         test.save()
+
+
+def pack(_list):
+    new_list = list(zip(_list[::2], _list[1::2]))
+    print("list",_list)
+    if len(_list) % 2:
+        try:
+            new_list.append((_list.reverse()[0], None))
+        except TypeError:
+            new_list.append((_list[0],None))
+    return new_list
 
 
 # TODO Добавить последние измененные пользователем
@@ -32,7 +46,8 @@ class EIndexView(View):
  
     def get(self, request):
         update_counts_of_tasks_and_variants()
-        all_tests = Test.objects.all().order_by('-added_date')
+        all_tests = Test.objects.all().order_by('-added_date').filter(private=False)
+        all_tests = pack(all_tests)
         # Создаём Paginator, в который передаём статьи и указываем, 
         # что их будет 10 штук на одну страницу
         current_page = Paginator(all_tests, 5)
@@ -70,7 +85,8 @@ def create_dictionary_of_likes(user):
 
 def test_list(request):
     update_counts_of_tasks_and_variants()
-    all_tests = Test.objects.all().order_by('-added_date')
+    all_tests = Test.objects.all().order_by('-added_date').filter(private=False)
+    all_tests = pack(all_tests)
     current_page = Paginator(all_tests, 5)
     page = request.GET.get('page')
     try:
@@ -79,14 +95,17 @@ def test_list(request):
         paginator_tests = current_page.page(1)  
     except EmptyPage:
         paginator_tests = current_page.page(current_page.num_pages)
-    return render(request, 'tests/test_list.html', {"tests": paginator_tests})
+    liked_tests = create_dictionary_of_likes(request.user)
+    return render(request, 'tests/test_list.html', {'tests': paginator_tests, 'liked_tests': liked_tests})
 
 
 def mytests_list(request):
+    update_counts_of_tasks_and_variants()
     if not request.user.id:
         return index(request, username=None)
     update_counts_of_tasks_and_variants()
     all_tests = Test.objects.filter(user=request.user).order_by("-added_date")
+    all_tests = pack(all_tests)
     current_page = Paginator(all_tests, 5)
     page = request.GET.get('page')
     try:
@@ -163,12 +182,13 @@ def tag_new(request, pk):
 
 
 def test_detail(request, pk):
-	test = get_object_or_404(Test, pk=pk)
-	variants = test.variants
-	allow_to_edit = False
-	if request.user.id == test.user.id:
-		allow_to_edit = True
-	return render(request, 'tests/test_detail.html', {'test': test, 'variants': variants,'allow_to_edit': allow_to_edit})
+    update_counts_of_tasks_and_variants()
+    test = get_object_or_404(Test, pk=pk)
+    variants = test.variants
+    allow_to_edit = False
+    if request.user.id == test.user.id:
+        allow_to_edit = True
+    return render(request, 'tests/test_detail.html', {'test': test, 'variants': variants,'allow_to_edit': allow_to_edit})
 
 
 def test_print(request, pk):
@@ -314,3 +334,30 @@ def like(request):
     ctx = {'likes_count': test.total_likes, 'message': message}
     # use mimetype instead of content_type if django < 5
     return HttpResponse(json.dumps(ctx), content_type='application/json')
+
+
+def check_saved(request, all_tests):
+    all_tests_response = []
+    for test in all_tests:
+        if test.likes.filter(user=request.user.id).exists():
+            all_tests_response.append(test)
+    return all_tests_response
+
+
+@login_required
+def saved(request):
+    if not request.user.id:
+        return index(request, username=None)
+    update_counts_of_tasks_and_variants()
+    all_tests = Test.objects.all().order_by("-added_date")
+    all_tests = check_saved(request, all_tests)
+    all_tests = pack(all_tests)
+    current_page = Paginator(all_tests, 5)
+    page = request.GET.get('page')
+    try:
+        paginator_tests = current_page.page(page)  
+    except PageNotAnInteger:
+        paginator_tests = current_page.page(1)  
+    except EmptyPage:
+        paginator_tests = current_page.page(current_page.num_pages)
+    return render(request, 'tests/saved.html', {"tests": paginator_tests})
