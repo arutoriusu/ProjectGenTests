@@ -51,6 +51,7 @@ class Test(models.Model):
 class Variant(models.Model):
     test = models.ForeignKey(to=Test, on_delete=models.CASCADE, related_name='variants', )
     number_of_variant = models.CharField(max_length=2, default="1")
+    count_of_tasks = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "variant"
