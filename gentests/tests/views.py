@@ -286,7 +286,7 @@ def test_delete(request, pk):
 	if request.user != test.user:
 		return redirect('/')
 	test.delete()
-	return redirect('/test/list/')
+	return redirect('/mytests/list/')
 
 
 @login_required
