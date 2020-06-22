@@ -230,8 +230,17 @@ def task_new(request, pk, pk2):
 
 def task_list(request, category):
     tasks = Task.objects.filter(category=category).order_by("-added_date")
+    tasks = pack(tasks)
+    current_page = Paginator(tasks, 5)
+    page = request.GET.get('page')
+    try:
+        paginator_tasks = current_page.page(page)  
+    except PageNotAnInteger:
+        paginator_tasks = current_page.page(1)  
+    except EmptyPage:
+        paginator_tasks = current_page.page(current_page.num_pages)
     liked_tasks = create_dictionary_of_likes_tasks(request.user)
-    return render(request, "tasks/task_list.html", {"tasks": tasks, 'liked_tasks': liked_tasks})
+    return render(request, "tasks/task_list.html", {"tasks": paginator_tasks, 'liked_tasks': liked_tasks})
 
 
 @login_required
