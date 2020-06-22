@@ -1,5 +1,33 @@
 {% extends 'base/wrapper.html' %}
+{% load tests_filters %}
+{% block javascript %}
+<script>
+ $(document).on('click','#like',function (e) {
+      $.ajax({
+               type: "POST",
+               url: "{% url 'like_task' %}",
+               data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'pk': $(this).attr('name')},
+               dataType: "json",
+               success: function(response) {
+                      //alert(response.message);
+                      //alert('Company likes count is now ' + response.likes_count);
+                },
+                error: function(rs, e) {
+                       //alert(rs.responseText);
+                }
+          }); 
+    })
 
+var getLikeButton = document.getElementsByClassName('like_button');
+
+for (var i = 0; i < getLikeButton.length; i++) {
+   getLikeButton.item(i).addEventListener('click', (e) => {
+     e.target.src = "../../static/tests/img/heart-fill.svg";
+   });
+}
+
+</script>
+{% endblock %}
 {% block header %}
 <main class="col-md-9">
   {% for task in tasks %}
@@ -7,7 +35,16 @@
         <div class="card" style="width: 18rem; height: 23rem;">
             <div class="card-body">
               <h5 class="card-text">{{task.question|safe|truncatewords:10}}</h5>
-              <a href="#" class="btn btn-primary greyButton">Сохранить</a>
+              <h5 class="card-subtitle mb-2 text-muted">Автор: {{task.user}}</h5>
+              {% if not liked_tasks|get_value_from_dict:task.pk %}
+                  <a id="like" name='{{ task.pk }}' class="btn btn-primary greyButton like_button">
+                    <img src="../../static/tests/img/heart.svg" alt="" width="24" height="24" title="Bootstrap">
+                  </a>
+                  {% else %}
+                  <a id="dislike_default" name='{{ task.pk }}' class="btn btn-primary greyButton">
+                    <img src="../../static/tests/img/heart-fill.svg" alt="" width="24" height="24" title="Bootstrap">
+                  </a>
+                  {% endif %}
               <div class="date">
                 {{task.added_date|date:" Добавлено d.m.y в H:i"}}
               </div>

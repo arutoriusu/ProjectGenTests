@@ -32,7 +32,6 @@ def update_counts_of_tasks_and_variants():
 
 def pack(_list):
     new_list = list(zip(_list[::2], _list[1::2]))
-    print("list",_list)
     if len(_list) % 2:
         try:
             new_list.append((_list.reverse()[0], None))
@@ -67,11 +66,11 @@ class EIndexView(View):
             # Если вышли за последнюю страницу, то возвращаем последнюю
             paginator_tests = current_page.page(current_page.num_pages) 
 
-        liked_tests = create_dictionary_of_likes(request.user)
+        liked_tests = create_dictionary_of_likes_tests(request.user)
         return render(request, 'base/main.html', {'tests': paginator_tests, 'liked_tests': liked_tests})
 
 
-def create_dictionary_of_likes(user):
+def create_dictionary_of_likes_tests(user):
     if user.is_authenticated:
         liked_tests = {}
         tests = Test.objects.all()
@@ -80,6 +79,18 @@ def create_dictionary_of_likes(user):
             likes = Like.objects.filter(content_type=obj_type, object_id=test.id, user=user)
             liked_tests[test.pk] = likes.exists()
         return liked_tests
+    return False
+
+
+def create_dictionary_of_likes_tasks(user):
+    if user.is_authenticated:
+        liked_tasks = {}
+        tasks = Task.objects.all()
+        for task in tasks:
+            obj_type = ContentType.objects.get_for_model(task)
+            likes = Like.objects.filter(content_type=obj_type, object_id=task.id, user=user)
+            liked_tasks[task.pk] = likes.exists()
+        return liked_tasks
     return False
 
 
@@ -95,7 +106,7 @@ def test_list(request):
         paginator_tests = current_page.page(1)  
     except EmptyPage:
         paginator_tests = current_page.page(current_page.num_pages)
-    liked_tests = create_dictionary_of_likes(request.user)
+    liked_tests = create_dictionary_of_likes_tests(request.user)
     return render(request, 'tests/test_list.html', {'tests': paginator_tests, 'liked_tests': liked_tests})
 
 
@@ -218,8 +229,9 @@ def task_new(request, pk, pk2):
 
 
 def task_list(request, category):
-	tasks = Task.objects.filter(category=category).order_by("-added_date")
-	return render(request, "tasks/task_list.html", {"tasks": tasks})
+    tasks = Task.objects.filter(category=category).order_by("-added_date")
+    liked_tasks = create_dictionary_of_likes_tasks(request.user)
+    return render(request, "tasks/task_list.html", {"tasks": tasks, 'liked_tasks': liked_tasks})
 
 
 @login_required
@@ -275,7 +287,7 @@ def test_edit(request, pk):
         return redirect('/')
     variants = test.variants
     if request.method == "POST":
-        form = TestForm(request.POST, instance=test) # why instance
+        form = TestForm(request.POST, instance=test)
         if form.is_valid():
             test = form.save(commit=False)
             test.user = request.user
@@ -336,6 +348,22 @@ def like(request):
     return HttpResponse(json.dumps(ctx), content_type='application/json')
 
 
+#TODO: refactor liking (and rename)
+@login_required
+def like_task(request):
+    pk = request.POST.get('pk', None)
+    user = request.user
+    task = get_object_or_404(Task, pk=pk)
+    if task.likes.filter(id=user.id).exists():
+        message = 'You disliked this'
+    else:
+        message = 'You liked this'
+        add_like(task, request.user)
+    ctx = {'likes_count': task.total_likes, 'message': message}
+    # use mimetype instead of content_type if django < 5
+    return HttpResponse(json.dumps(ctx), content_type='application/json')
+
+
 def check_saved(request, all_tests):
     all_tests_response = []
     for test in all_tests:
@@ -361,3 +389,22 @@ def saved(request):
     except EmptyPage:
         paginator_tests = current_page.page(current_page.num_pages)
     return render(request, 'tests/saved.html', {"tests": paginator_tests})
+
+
+@login_required
+def saved_tasks(request):
+    if not request.user.id:
+        return index(request, username=None)
+    update_counts_of_tasks_and_variants()
+    all_tasks = Task.objects.all().order_by("-added_date")
+    all_tasks = check_saved(request, all_tasks)
+    all_tasks = pack(all_tasks)
+    current_page = Paginator(all_tasks, 5)
+    page = request.GET.get('page')
+    try:
+        paginator_tasks = current_page.page(page)  
+    except PageNotAnInteger:
+        paginator_tasks = current_page.page(1)  
+    except EmptyPage:
+        paginator_tasks = current_page.page(current_page.num_pages)
+    return render(request, 'tasks/saved_tasks.html', {"tasks": paginator_tasks})
