@@ -26,24 +26,24 @@
             </form>
           </li>
           <li class="nav-item">
-            <a href="#" class="btn btn-primary btn-lg onlineTests blackOnGrey">Онлайн-тесты</a>
-            <a href="#" class="btn btn-primary btn-lg helpButton blackOnGrey">Помощь </a>
+            <a href="#" class="btn btn-outline-dark btn-lg onlineTests blackOnGrey">Онлайн-тесты</a>
+            <a href="#" class="btn btn-outline-dark btn-lg helpButton blackOnGrey">Помощь </a>
           </li>
           
       </ul>
       
       {% if user.is_authenticated or display_user %}
         <div class="username"><a href="#" class="whiteClassA nav-link nav-link-username"> {{ user.username }} {{ display_user }}</a></div>
-        <div class="quit"><a href="{% url 'logout' %}" class="btn btn-primary btn-lg quit greyButton ">Выйти </a></div>
+        <div class="quit"><a href="{% url 'logout' %}" class="btn btn-outline-dark btn-lg quit greyButton ">Выйти </a></div>
       {% else %}
-        <div><a href="{% url 'login' %}" class="btn btn-primary btn-lg signin ">Войти </a></div>
-        <div><a href="{% url 'registration' %}" class="btn btn-primary btn-lg signup ">Зарегистрироваться </a> </div> 
+        <div><a href="{% url 'login' %}" class="btn btn-outline-dark btn-lg signin ">Войти </a></div>
+        <div><a href="{% url 'registration' %}" class="btn btn-outline-dark btn-lg signup ">Зарегистрироваться </a> </div> 
       {% endif %}
 
   </nav>
-  <div class="container-fluid">
-      <div class="row">
-          <header class="col-md-3">
+  <div class="container-fluid" style="margin-top: 0; padding: 0;">
+      <div class="row" style="margin:0">
+          <header class="col-md-3" style="background-color: #343a40!important; padding:6px;">
           <nav class="sidebar-sticky bg-dark navbar-expand-md">
               <a href="{% url 'index' %}" class="logo navbar-brand whiteClassA">Главная</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
