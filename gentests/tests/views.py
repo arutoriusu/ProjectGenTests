@@ -14,6 +14,7 @@ from django.views import View
 from .services import add_like, is_fan
 import json
 from django.contrib.contenttypes.models import ContentType
+from django.views.decorators.csrf import csrf_exempt
 
 
 def update_counts_of_tasks_and_variants():
@@ -256,10 +257,14 @@ def variant_new(request, pk):
 
 
 def variant_detail(request, pk, pk2):
-	test = get_object_or_404(Test, pk=pk)
-	variant = get_object_or_404(Variant, pk=pk2)
-	tasks = variant.tasks
-	return render(request, 'variants/variant_detail.html', {'test': test, 'variant': variant, 'tasks': tasks})
+    test = get_object_or_404(Test, pk=pk)
+    variant = get_object_or_404(Variant, pk=pk2)
+    tasks = variant.tasks
+
+    saved_tasks = Task.objects.all().order_by("-added_date")
+    saved_tasks = check_saved(request, saved_tasks)
+
+    return render(request, 'variants/variant_detail.html', {'test': test, 'variant': variant, 'tasks': tasks, 'saved_tasks':saved_tasks})
 
 
 def variant_print(request, pk, pk2):
@@ -417,3 +422,17 @@ def saved_tasks(request):
     except EmptyPage:
         paginator_tasks = current_page.page(current_page.num_pages)
     return render(request, 'tasks/saved_tasks.html', {"tasks": paginator_tasks})
+
+
+@login_required
+@csrf_exempt
+def qwerty(request):
+    task_pk = request.POST.get('task_pk', None)
+    variant_pk = request.POST.get('variant_pk', None)
+    test_pk = request.POST.get('test_pk', None)
+    task = get_object_or_404(Task, pk=task_pk)
+    variant = get_object_or_404(Variant, pk=variant_pk)
+    print(task_pk, variant_pk)
+    task.variant = variant
+    task.save()
+    return test_detail(request, test_pk)

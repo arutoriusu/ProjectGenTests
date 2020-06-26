@@ -1,5 +1,38 @@
 {% extends 'base/wrapper.html' %}
+{% block javascript %}
+<script>
+$(function(){
+    
+    $(".dropdown-menu a").click(function(){
+        console.log($(this).attr("name"));
+      $("#drpdwntsk").text($(this).text());
+      $("#drpdwntsk").attr('name',$(this).attr("name"));
+   });
 
+});
+$(document).ready(function(){
+  $(".dropdown").on("hidden.bs.dropdown", function(event){
+    var x = $(event.relatedTarget).text(); // Get the button text
+  });
+  $(document).on("click", "#to_add", function(){
+    var test_pk = '{{ test.pk }}';
+    var variant_pk = '{{ variant.pk }}';
+    console.log("///" + document.getElementById("drpdwntsk").name);
+    $.ajax({
+        type: "POST",
+        url: "{% url 'qwerty' %}",
+        data: {task_pk: document.getElementById("drpdwntsk").name, 
+               test_pk: test_pk, 
+               variant_pk: variant_pk
+               },
+        dataType: "json",
+        }); 
+        console.log("111111111111111");
+        window.location.reload(true);
+    });
+});
+</script>
+{% endblock %}
 {% block header %}
 <main class="col-md-9">
     <h3>Мои контрольные</h3>
@@ -12,8 +45,66 @@
     </div>
     <h1>Вариант {{ variant.number_of_variant }}</h1>
     {% if test.user.pk == user.pk %}
-        <a class="btn btn-primary greyButton" href="{% url 'variant_delete' pk=test.pk pk2=variant.pk %}">Удалить вариант</a>
-        <a class="btn btn-primary greyButton" href="{% url 'task_new' pk=test.pk pk2=variant.pk %}">Добавить задачу</a>
+        <a class="btn btn-outline-dark greyButton" href="{% url 'variant_delete' pk=test.pk pk2=variant.pk %}">Удалить вариант</a>
+        {% comment %} <a class="btn btn-outline-dark greyButton" href="{% url 'task_new' pk=test.pk pk2=variant.pk %}">Добавить задачу</a> {% endcomment %}
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-outline-dark greyButton" data-toggle="modal" data-target="#taskAddModalCenter">
+        Добавить задачу
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="taskAddModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Добавить задачу</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Добавить задачу вручную или добавить из избранных задач?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <a class="btn btn-outline-dark" href="{% url 'task_new' pk=test.pk pk2=variant.pk %}">Вручную</a>
+                <a class="btn btn-outline-dark" data-toggle="modal" data-target="#taskAddFromSavedModalCenter" data-dismiss="modal">Из избранного</a>
+            </div>
+            </div>
+        </div>
+        </div>
+        {% comment %}  {% endcomment %}
+        <!-- Modal -->
+        <div class="modal fade" id="taskAddFromSavedModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Добавить задачу из избранного</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+                <div class="dropdown">
+                    <button id="drpdwntsk" type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown">
+                        Выберите задачу
+                    </button>
+                    <div class="dropdown-menu">
+                        {% for task in saved_tasks %}
+                            <a id="taskpk" name='{{ task.pk }}'  class="dropdown-item">{{ task.question|safe|truncatewords:3 }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <a id="to_add" class="btn btn-outline-dark whiteClassA" data-dismiss="modal">Добавить</a>
+            </div>
+            </div>
+        </div>
+        </div>
+        {% comment %}  {% endcomment %}
     {% endif %}
     <a class="btn btn-outline-dark greyButton" href="{% url 'variant_print' pk=test.pk pk2=variant.pk %}">Распечатать вариант</a>
 

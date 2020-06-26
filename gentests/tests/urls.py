@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^$', views.EIndexView.as_view(), name='index'),
     url(r'^search/$', SearchResultsView.as_view(queryset=Task.objects.all().order_by("-added_date")), name='search_results'),
     url(r'^like/$', views.like, name='like'),
+    url(r'^qwerty/$', views.qwerty, name='qwerty'),
     url(r'^liketask/$', views.like_task, name='like_task'),
     url(r'^test/(?P<pk>\d+)/tag/new/$', views.tag_new, name='tag_new'),
     url(r'^test/new/$', views.test_new, name='test_new'),
