@@ -15,7 +15,7 @@
         <a class="btn btn-primary greyButton" href="{% url 'variant_delete' pk=test.pk pk2=variant.pk %}">Удалить вариант</a>
         <a class="btn btn-primary greyButton" href="{% url 'task_new' pk=test.pk pk2=variant.pk %}">Добавить задачу</a>
     {% endif %}
-    <a class="btn btn-primary greyButton" href="{% url 'variant_print' pk=test.pk pk2=variant.pk %}">Распечатать вариант</a>
+    <a class="btn btn-outline-dark greyButton" href="{% url 'variant_print' pk=test.pk pk2=variant.pk %}">Распечатать вариант</a>
 
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <div class="page-content page-container" id="page-content">
@@ -42,8 +42,8 @@
                                                 <h5 class="card-text">Ответ: {{ task.answer|safe }}</h5>
                                             </div>
                                             {% if test.user.pk == user.pk %}
-                                                <a class="btn btn-primary greyButton" href="{% url 'task_edit' pk=test.pk pk2=variant.pk pk3=task.pk %}">Изменить</a>
-                                                <a class="btn btn-primary greyButton" href="{% url 'task_delete' pk=test.pk pk2=variant.pk pk3=task.pk %}">Удалить</a>
+                                                <a class="btn btn-outline-dark greyButton" href="{% url 'task_edit' pk=test.pk pk2=variant.pk pk3=task.pk %}">Изменить</a>
+                                                <a class="btn btn-outline-dark greyButton" href="{% url 'task_delete' pk=test.pk pk2=variant.pk pk3=task.pk %}">Удалить</a>
                                             {% endif %}
                                             <div class="date">
                                                 {{task.added_date|date:" Добавлено d.m.y в H:i"}}
