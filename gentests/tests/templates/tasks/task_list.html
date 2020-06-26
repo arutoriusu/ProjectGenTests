@@ -36,16 +36,16 @@ for (var i = 0; i < getLikeButton.length; i++) {
               {% if task is not None %}
               <td>
                 <div class="post">
-                  <div class="card" style="width: 18rem; height: 23rem;">
+                  <div class="card" style="width: 18rem; height: 25rem;">
                       <div class="card-body">
                         <h5 class="card-text">{{task.question|safe|truncatewords:10}}</h5>
                         <h5 class="card-subtitle mb-2 text-muted">Автор: {{task.user}}</h5>
                         {% if not liked_tasks|get_value_from_dict:task.pk %}
-                            <a id="like" name='{{ task.pk }}' class="btn btn-primary greyButton like_button">
+                            <a id="like" name='{{ task.pk }}' class="btn btn-outline-dark greyButton like_button">
                               <img src="../../static/tests/img/heart.svg" alt="" width="24" height="24" title="Bootstrap">
                             </a>
                             {% else %}
-                            <a id="dislike_default" name='{{ task.pk }}' class="btn btn-primary greyButton">
+                            <a id="dislike_default" name='{{ task.pk }}' class="btn btn-outline-dark greyButton">
                               <img src="../../static/tests/img/heart-fill.svg" alt="" width="24" height="24" title="Bootstrap">
                             </a>
                             {% endif %}
@@ -61,16 +61,16 @@ for (var i = 0; i < getLikeButton.length; i++) {
               {% if task2 is not None %}
               <td>
                 <div class="post">
-                  <div class="card" style="width: 18rem; height: 23rem;">
+                  <div class="card" style="width: 18rem; height: 25rem;">
                       <div class="card-body">
                         <h5 class="card-text">{{task2.question|safe|truncatewords:10}}</h5>
                         <h5 class="card-subtitle mb-2 text-muted">Автор: {{task2.user}}</h5>
                         {% if not liked_tasks|get_value_from_dict:task2.pk %}
-                            <a id="like" name='{{ task2.pk }}' class="btn btn-primary greyButton like_button">
+                            <a id="like" name='{{ task2.pk }}' class="btn btn-outline-dark greyButton like_button">
                               <img src="../../static/tests/img/heart.svg" alt="" width="24" height="24" title="Bootstrap">
                             </a>
                             {% else %}
-                            <a id="dislike_default" name='{{ task2.pk }}' class="btn btn-primary greyButton">
+                            <a id="dislike_default" name='{{ task2.pk }}' class="btn btn-outline-dark greyButton">
                               <img src="../../static/tests/img/heart-fill.svg" alt="" width="24" height="24" title="Bootstrap">
                             </a>
                             {% endif %}

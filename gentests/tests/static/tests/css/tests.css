@@ -71,6 +71,9 @@ A:hover {
     left: 20;
     width: auto;
 }
+.btn {
+    margin: 5px;
+}
 .signin {
     font-family: 'Roboto', sans-serif;
     background-color: rgb(190, 190, 190);
@@ -82,8 +85,8 @@ A:hover {
 }
 .greyButton{
     background-color: rgb(190, 190, 190);
+    color: black;
 }
-A.greyButton:link { color: black;}
 .username {
     position: absolute;
     top: 25px;
